@@ -42,5 +42,12 @@ a, a:hover,a:active{
 img{
   width: 100%;
 }
+.card {
+  border: none;
+  background-color: inherit;
+  .card-body {
+    padding: 0;
+  }
+}
 
 //END RESET CSS

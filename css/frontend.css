@@ -37,6 +37,15 @@ img {
   width: 100%;
 }
 
+.card {
+  border: none;
+  background-color: inherit;
+}
+
+.card .card-body {
+  padding: 0;
+}
+
 #menu #menu_top {
   background-color: #1f45a8;
 }
@@ -90,12 +99,12 @@ img {
 
 #menu #menu_bottom ul.main_menu {
   display: block;
+  position: relative;
 }
 
 #menu #menu_bottom ul.main_menu li {
   display: inline-block;
   padding: 15px;
-  position: relative;
 }
 
 #menu #menu_bottom ul.main_menu li i {
@@ -120,7 +129,7 @@ img {
   transition: all 0.2s;
 }
 
-#menu #menu_bottom ul.main_menu li.has-item-down ul {
+#menu #menu_bottom ul.main_menu li.has-item-down .drop-down {
   position: absolute;
   opacity: 0;
   display: none;
@@ -129,20 +138,19 @@ img {
   left: 0;
   z-index: 9;
   width: 160%;
+  padding: 35px 0 18px;
 }
 
-#menu #menu_bottom ul.main_menu li.has-item-down ul li {
-  display: block;
-  padding-left: 10px;
-  -webkit-transition: all 0.2s;
-  transition: all 0.2s;
+#menu #menu_bottom ul.main_menu li.has-item-down .drop-down img {
+  width: 200px;
+  text-align: center;
 }
 
-#menu #menu_bottom ul.main_menu li.has-item-down ul li:hover {
-  padding-left: 20px;
+#menu #menu_bottom ul.main_menu li.has-item-down .drop-down h4.title {
+  text-align: center;
 }
 
-#menu #menu_bottom ul.main_menu li.has-item-down:hover > ul {
+#menu #menu_bottom ul.main_menu li.has-item-down:hover > .drop-down {
   display: block;
   opacity: 1;
 }

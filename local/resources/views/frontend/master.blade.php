@@ -21,7 +21,7 @@
 
 <div id="blurrMe">
     {{--@include('frontend.common.menu.m-menu')--}}
-    @include('frontend.common.menu.menu2')
+    @include('frontend.common.menu.menu3')
     @yield('slider')
     @yield('container')
 </div>
