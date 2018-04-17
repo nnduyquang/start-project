@@ -62,7 +62,7 @@
                 <td>{{ $data->users->name }}</td>
                 <td>{{ $data->created_at }}</td>
                 <td>{{ $data->updated_at }}</td>
-                <td>{{$data->categorypost->name}}</td>
+                <td>{{$data->categoryitem->name}}</td>
                 <td>
                     @permission(('post-edit'))
                     <a class="btn btn-primary" href="{{ route('post.edit',$data->id) }}">Cập Nhật</a>

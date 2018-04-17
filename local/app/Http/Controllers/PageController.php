@@ -48,7 +48,6 @@ class PageController extends Controller
         $isActive = $request->input('page_is_active');
         $image = $request->input('image');
         $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
-        $template=$request->input('template');
         if ($isActive) {
             $page->isActive = 1;
         } else {
@@ -69,7 +68,6 @@ class PageController extends Controller
         $page->title = $title;
         $page->path = chuyen_chuoi_thanh_path($title);
         $page->image = $image;
-        $page->template = $template;
         $page->content = $content;
         $page->post_type = 1;
         $page->user_id = Auth::user()->id;
@@ -120,7 +118,6 @@ class PageController extends Controller
         $isActive = $request->input('page_is_active');
         $image = $request->input('image');
         $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
-        $template=$request->input('template');
         if ($isActive) {
             $page->isActive = 1;
         } else {
@@ -141,7 +138,6 @@ class PageController extends Controller
         $page->title = $title;
         $page->path = chuyen_chuoi_thanh_path($title);
         $page->image = $image;
-        $page->template = $template;
         $page->content = $content;
         $page->post_type = 1;
         $page->user_id = Auth::user()->id;

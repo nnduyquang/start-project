@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CategoryPost;
+use App\CategoryItem;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,7 @@ class CategoryPostController extends Controller
      */
     public function index(Request $request)
     {
-        $dd_categorie_posts = CategoryPost::orderBy('order')->get();
+        $dd_categorie_posts = CategoryItem::where('type', CATEGORY_POST)->orderBy('order')->get();
         foreach ($dd_categorie_posts as $key => $data) {
             if ($data->level == CATEGORY_POST_CAP_1) {
                 $data->name = ' ---- ' . $data->name;
@@ -26,7 +26,7 @@ class CategoryPostController extends Controller
             }
         }
         $categoryposts = [];
-        self::showCategoryPostDropDown($dd_categorie_posts, 0, $categoryposts);
+        self::showCategoryItemDropDown($dd_categorie_posts, 0, $categoryposts);
         return view('backend.admin.categorypost.index', compact('categoryposts'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -37,8 +37,7 @@ class CategoryPostController extends Controller
      */
     public function create()
     {
-        $pages = Post::where('post_type', 1)->get();
-        $dd_categorie_posts = CategoryPost::orderBy('order')->get();
+        $dd_categorie_posts = CategoryItem::where('type', CATEGORY_POST)->orderBy('order')->get();
         foreach ($dd_categorie_posts as $key => $data) {
             if ($data->level == CATEGORY_POST_CAP_1) {
                 $data->name = ' ---- ' . $data->name;
@@ -49,9 +48,9 @@ class CategoryPostController extends Controller
             }
         }
         $newArray = [];
-        self::showCategoryPostDropDown($dd_categorie_posts, 0, $newArray);
+        self::showCategoryItemDropDown($dd_categorie_posts, 0, $newArray);
         $dd_categorie_posts = array_prepend(array_pluck($newArray, 'name', 'id'), 'Cấp Cha', '-1');
-        return view('backend.admin.categorypost.create', compact('roles','pages' ,'dd_categorie_posts'));
+        return view('backend.admin.categorypost.create', compact('roles','dd_categorie_posts'));
     }
 
     /**
@@ -62,25 +61,47 @@ class CategoryPostController extends Controller
      */
     public function store(Request $request)
     {
-        $categorypost = new CategoryPost();
+        $categorypost = new CategoryItem();
         $name = $request->input('name');
         $order = $request->input('order');
         $parentID = $request->input('parent');
-        $pageId = $request->input('page_id');
-        $template=$request->input('template');
+        $description = $request->input('description');
+        $seoTitle = $request->input('seo_title');
+        $seoDescription = $request->input('seo_description');
+        $seoKeywords=$request->input('seo_keywords');
+        $isActive = $request->input('page_is_active');
+        $image = $request->input('image');
+        $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
         if ($parentID != CATEGORY_POST_CAP_CHA) {
             $categorypost->parent_id = $parentID;
-            $level = CategoryPost::where('id', '=', $parentID)->first()->level;
+            $level = CategoryItem::where('id', '=', $parentID)->first()->level;
             $categorypost->level = (int)$level + 1;
         } else
             $categorypost->level = 0;
-        if ($order) {
+        if (!IsNullOrEmptyString($order)) {
             $categorypost->order = $order;
         }
-        $categorypost->page_id = $pageId;
-        $categorypost->template = $template;
+        if (!IsNullOrEmptyString($isActive)) {
+            $categorypost->isActive = 1;
+        } else {
+            $categorypost->isActive = 0;
+        }
+        if (!IsNullOrEmptyString($description)) {
+            $categorypost->description = $description;
+        }
+        if (!IsNullOrEmptyString($seoTitle)) {
+            $categorypost->seo_title = $seoTitle;
+        }
+        if (!IsNullOrEmptyString($seoDescription)) {
+            $categorypost->seo_description = $seoDescription;
+        }
+        if (!IsNullOrEmptyString($seoKeywords)) {
+            $categorypost->seo_keywords = $seoKeywords;
+        }
         $categorypost->name = $name;
+        $categorypost->type = CATEGORY_POST;
         $categorypost->path = chuyen_chuoi_thanh_path($name);
+        $categorypost->image = $image;
         $categorypost->save();
         return redirect()->route('categorypost.index')->with('success', 'Tạo Mới Thành Công Chuyên Mục');
     }
@@ -104,10 +125,9 @@ class CategoryPostController extends Controller
      */
     public function edit($id)
     {
-        $categorypost = CategoryPost::find($id);
-        $pages = Post::where('post_type', 1)->get();
-        $dd_categorie_posts = CategoryPost::orderBy('order')->get();
-        foreach ($dd_categorie_posts as $key => $data) {
+        $categorypost = CategoryItem::find($id);
+        $dd_category_post = CategoryItem::where('type', CATEGORY_POST)->orderBy('order')->get();
+        foreach ($dd_category_post as $key => $data) {
             if ($data->level == CATEGORY_POST_CAP_1) {
                 $data->name = ' ---- ' . $data->name;
             } else if ($data->level == CATEGORY_POST_CAP_2) {
@@ -117,12 +137,12 @@ class CategoryPostController extends Controller
             }
         }
         $newArray=[];
-        self::showCategoryPostDropDown($dd_categorie_posts, 0, $newArray);
-        $dd_categorie_posts = array_prepend(array_pluck($newArray, 'name', 'id'), 'Cấp Cha', '-1');
-        $dd_categorie_posts = array_map(function ($index, $value) {
+        self::showCategoryItemDropDown($dd_category_post, 0, $newArray);
+        $dd_category_post = array_prepend(array_pluck($newArray, 'name', 'id'), 'Cấp Cha', '-1');
+        $dd_category_post = array_map(function ($index, $value) {
             return ['index' => $index, 'value' => $value];
-        }, array_keys($dd_categorie_posts), $dd_categorie_posts);
-        return view('backend.admin.categorypost.edit', compact('categorypost','pages','dd_categorie_posts'));
+        }, array_keys($dd_category_post), $dd_category_post);
+        return view('backend.admin.categorypost.edit', compact('categorypost','dd_category_post'));
     }
 
     /**
@@ -134,29 +154,47 @@ class CategoryPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $categorypost = CategoryPost::find($id);
+        $categorypost = CategoryItem::find($id);
         $name = $request->input('name');
         $order = $request->input('order');
-        if ($order) {
+        $parentID = $request->input('parent');
+        $description = $request->input('description');
+        $seoTitle = $request->input('seo_title');
+        $seoDescription = $request->input('seo_description');
+        $seoKeywords=$request->input('seo_keywords');
+        $isActive = $request->input('page_is_active');
+        $image = $request->input('image');
+        $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
+        if ($parentID != CATEGORY_POST_CAP_CHA) {
+            $categorypost->parent_id = $parentID;
+            $level = CategoryItem::where('id', '=', $parentID)->first()->level;
+            $categorypost->level = (int)$level + 1;
+        } else
+            $categorypost->level = 0;
+        if (!IsNullOrEmptyString($order)) {
             $categorypost->order = $order;
         }
-        $parentID = $request->input('parent');
-        $template=$request->input('template');
-        $pageId = $request->input('page_id');
-        if ($parentID != $categorypost->parent_id) {
-            if ($parentID != CATEGORY_POST_CAP_CHA) {
-                $categorypost->parent_id = $parentID;
-                $level = CategoryPost::where('id', '=', $parentID)->first()->level;
-                $categorypost->level = (int)$level + 1;
-            } else {
-                $categorypost->parent_id = 0;
-                $categorypost->level = 0;
-            }
+        if (!IsNullOrEmptyString($isActive)) {
+            $categorypost->isActive = 1;
+        } else {
+            $categorypost->isActive = 0;
         }
-        $categorypost->page_id = $pageId;
-        $categorypost->template = $template;
+        if (!IsNullOrEmptyString($description)) {
+            $categorypost->description = $description;
+        }
+        if (!IsNullOrEmptyString($seoTitle)) {
+            $categorypost->seo_title = $seoTitle;
+        }
+        if (!IsNullOrEmptyString($seoDescription)) {
+            $categorypost->seo_description = $seoDescription;
+        }
+        if (!IsNullOrEmptyString($seoKeywords)) {
+            $categorypost->seo_keywords = $seoKeywords;
+        }
         $categorypost->name = $name;
+        $categorypost->type = CATEGORY_POST;
         $categorypost->path = chuyen_chuoi_thanh_path($name);
+        $categorypost->image = $image;
         $categorypost->save();
         return redirect()->route('categorypost.index')->with('success', 'Cập Nhật Thành Công Chuyên Mục');
     }
@@ -169,18 +207,18 @@ class CategoryPostController extends Controller
      */
     public function destroy($id)
     {
-        $categorypost = CategoryPost::find($id);
+        $categorypost = CategoryItem::find($id);
         $categorypost->delete();
         return redirect()->route('categorypost.index')->with('success', 'Đã Xóa Thành Công');
     }
 
-    public function showCategoryPostDropDown($dd_categorie_posts, $parent_id = 0, &$newArray)
+    public function showCategoryItemDropDown($dd_categorie_posts, $parent_id = 0, &$newArray)
     {
         foreach ($dd_categorie_posts as $key => $data) {
             if ($data->parent_id == $parent_id) {
                 array_push($newArray, $data);
                 $dd_categorie_posts->forget($key);
-                self::showCategoryPostDropDown($dd_categorie_posts, $data->id, $newArray);
+                self::showCategoryItemDropDown($dd_categorie_posts, $data->id, $newArray);
             }
         }
     }

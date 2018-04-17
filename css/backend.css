@@ -1,3 +1,63 @@
+@font-face {
+  font-family: UTMAVO;
+  src: url("../fonts/utm-avo.ttf");
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  font-family: UTMAVO !important;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a, a:hover, a:active {
+  text-decoration: none !important;
+}
+
+img {
+  width: 100%;
+}
+
+.card {
+  border: none;
+  background-color: inherit;
+  border-radius: 0;
+}
+
+.card .card-body {
+  padding: 0;
+}
+
+.card .card-footer {
+  padding: 0;
+  background-color: inherit;
+  border: none;
+}
+
 .show-image {
   width: 100%;
 }
@@ -28,6 +88,50 @@
 
 .wrap-search i {
   margin-right: 3px;
+}
+
+#ulti-bar {
+  margin-top: 20px;
+}
+
+#ulti-bar .ulti-edit ul.ulti-head {
+  display: block;
+  padding: 10px;
+  color: black;
+  background-color: #eaeaea;
+  position: relative;
+}
+
+#ulti-bar .ulti-edit ul.ulti-head li {
+  display: inline-block;
+}
+
+#ulti-bar .ulti-edit ul.ulti-head li a {
+  color: black;
+}
+
+#ulti-bar .ulti-edit ul.ulti-head li ul.ulti-head-dropdown {
+  position: absolute;
+  list-style: none;
+  line-height: 1.5;
+  display: none;
+  background-color: #eaeaea;
+  width: 100%;
+  left: 0;
+  padding: 10px;
+}
+
+#ulti-bar .ulti-edit ul.ulti-head li ul.ulti-head-dropdown li a {
+  color: black;
+}
+
+#ulti-bar .ulti-edit ul.ulti-head:hover li ul.ulti-head-dropdown {
+  display: block;
+  z-index: 1;
+}
+
+#ulti-bar .ulti-edit ul.ulti-head:hover li ul.ulti-head-dropdown li:hover a {
+  color: green;
 }
 
 #menu-create, #menu-update {

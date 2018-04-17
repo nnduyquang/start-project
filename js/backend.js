@@ -1,7 +1,42 @@
 var token = $('meta[name="csrf-token"]').attr('content');function getBaseURL() {    var url = location.href;  // entire url including querystring - also: window.location.href;    var baseURL = url.substring(0, url.indexOf('/', 14));    if (baseURL.indexOf('http://localhost') != -1) {        // Base Url for localhost        var url = location.href;  // window.location.href;        var pathname = location.pathname;  // window.location.pathname;        var index1 = url.indexOf(pathname);        var index2 = url.indexOf("/", index1 + 1);        var baseLocalUrl = url.substr(0, index2);        return baseLocalUrl + "/";    }    else {        // Root Url for domain name        return baseURL + "/";    }}function selectFileWithKCFinder(elementPath, showHinhId) {    window.KCFinder = {        callBack: function (url) {            var output = document.getElementById(elementPath);            output.value = url;            $('#' + showHinhId).show();            $('#' + showHinhId).fadeIn("fast").attr('src', url);            window.KCFinder = null;        }    };    window.open(getBaseURL() + 'js/kcfinder/browse.php?type=images', 'kcfinder_textbox',        'status=0, toolbar=0, location=0, menubar=0, directories=0, ' +        'resizable=1, scrollbars=0, width=800, height=600'    );    if ($('#' + elementPath).val() == '')        $('#' + showHinhId).hide();    else        $('#' + showHinhId).show();}function integratedCKEDITOR(elementID, height) {    if ($('#' + elementID).length) {        var editor1=CKEDITOR.replace(elementID, {            height: height,            language: 'vi',            format_tags: 'p;h1;h2;h3;pre',            filebrowserBrowseUrl: '../../../js/kcfinder/browse.php?type=files',            filebrowserImageBrowseUrl: '../../../js/kcfinder/browse.php?type=images',            filebrowserFlashBrowseUrl: '../../../js/kcfinder/browse.php?type=flash',            filebrowserUploadUrl: '../../../js/kcfinder/upload.php?type=files',            filebrowserImageUploadUrl: '../../../js/kcfinder/upload.php?type=images',            filebrowserFlashUploadUrl: '../../../js/kcfinder/upload.php?type=flash',            extraAllowedContent : 'div',        });        editor1.on('instanceReady', function() {            // Output self-closing tags the HTML4 way, like <br>.            this.dataProcessor.writer.selfClosingEnd = '>';            // Use line breaks for block elements, tables, and lists.            var dtd = CKEDITOR.dtd;            for ( var e in CKEDITOR.tools.extend( {}, dtd.$nonBodyContent, dtd.$block, dtd.$listItem, dtd.$tableContent ) ) {                this.dataProcessor.writer.setRules( e, {                    indent: true,                    breakBeforeOpen: true,                    breakAfterOpen: true,                    breakBeforeClose: true,                    breakAfterClose: true                });            }            // Start in source mode.            // this.setMode('source');        });    }}function integrateSearch(elementID,formID){    $('#'+elementID).click(function () {        if ($('#txtSearch').val().trim() == '')            return;        if ($('#txtSearch').val().trim().replace(/ +(?= )/g, '') == $("input[name='hdKeyword']").val())            return;        $('#'+formID).submit();    });}function isEmpty(val) {    return ((val !== '') && (val !== undefined) && (val.length > 0) && (val !== null));}
 integratedCKEDITOR('description-page',height=200);
+// integratedCKEDITOR('seo-description',height=200);
+if ($('#btnBrowseImage').length) {
+    var button1 = document.getElementById('btnBrowseImage');
+    button1.onclick = function () {
+        selectFileWithKCFinder('pathImage','showHinh');
+    }
+}
+
+$('.ulti-copy').click(function(){
+    var selected = [];
+    $('input[type=checkbox][name=id\\[\\]]').each(function() {
+        if ($(this).is(":checked")) {
+            selected.push($(this).val());
+        }
+    });
+    if(selected.length!=0)
+    {
+        $('input[name=listID]').val(selected);
+        alert('Đã lưu sản phẩm');
+    }
+    else{
+        alert('Mời bạn chọn sản phẩm');
+    }
+    console.log(selected);
+    // alert(id[0]);
+});
+$('.ulti-paste').click(function(){
+    if( !$('input[name=listID]').val()){
+        alert('Bạn chưa Sao Chép Hoặc Chưa chọn sản phẩm');
+    }
+    else{
+        $('#formPaste').submit();
+    }
+});
+// integratedCKEDITOR('description-page',height=200);
 integratedCKEDITOR('content-page',height=800);
-integratedCKEDITOR('seo-description-page',height=200);
+// integratedCKEDITOR('seo-description-page',height=200);
 if ($('#btnBrowseImagePage').length) {
     var button1 = document.getElementById('btnBrowseImagePage');
     button1.onclick = function () {
@@ -10,7 +45,7 @@ if ($('#btnBrowseImagePage').length) {
 }
 integratedCKEDITOR('description-post',height=200);
 integratedCKEDITOR('content-post',height=800);
-integratedCKEDITOR('seo-description-post',height=200);
+// integratedCKEDITOR('seo-description-post',height=200);
 if ($('#btnBrowseImagePost').length) {
     var button1 = document.getElementById('btnBrowseImagePost');
     button1.onclick = function () {
@@ -161,3 +196,10 @@ $('button#deleteMenu').click(function () {
     $('#frmCreateThuNghiem').submit();
 });
 
+
+if ($('#btnBrowseImageMobile').length) {
+    var button1 = document.getElementById('btnBrowseImageMobile');
+    button1.onclick = function () {
+        selectFileWithKCFinder('pathImageMobile','showHinhMobile');
+    }
+}
