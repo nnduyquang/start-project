@@ -40,7 +40,16 @@
                     <strong>Hình Đại Diện: </strong>
                     {!! Form::text('image', null, array('class' => 'form-control','id'=>'pathImagePage')) !!}
                     <br>
-                    {!! Form::button('Tìm', array('id' => 'btnBrowseImagePage','class'=>'btn btn-primary')) !!}
+                    {{--{!! Form::button('Tìm', array('id' => 'btnBrowseImagePage','class'=>'btn btn-primary')) !!}--}}
+                    <div class="input-group">
+   <span class="input-group-btn">
+     <a id="btnBrowseImagePage" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+       <i class="fa fa-picture-o"></i> Choose
+     </a>
+   </span>
+                        <input id="thumbnail" class="form-control" type="text" name="filepath">
+                    </div>
+                    <img id="holder" style="margin-top:15px;height: auto;">
                 </div>
                 <div class="form-group">
                     {{ Html::image('','',array('id'=>'showHinhPage','class'=>'show-image'))}}

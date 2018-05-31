@@ -26,6 +26,7 @@ mix
     .styles([
         'bower_components/admin-lte/dist/js/adminlte.min.js',
         // 'bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js',
+        // 'vendor/unisharp/laravel-filemanager/public/js/lfm.js',
         'bower_components/gijgo/dist/combined/js/gijgo.min.js',
 
     ], '../js/core.backend.js')
