@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::where('post_type','!=',1)->orderBy('id', 'DESC')->get();
+        $posts = Post::where('post_type','=',IS_POST)->orderBy('id', 'DESC')->get();
         return view('backend.admin.post.index', compact('posts'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 

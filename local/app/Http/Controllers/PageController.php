@@ -15,7 +15,7 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {
-        $pages = Post::where('post_type','=',1)->orderBy('id', 'DESC')->get();
+        $pages = Post::where('post_type','=',IS_POST)->orderBy('id', 'DESC')->get();
         return view('backend.admin.page.index', compact('pages'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
