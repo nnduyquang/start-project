@@ -69,7 +69,7 @@ class PageController extends Controller
         $page->path = chuyen_chuoi_thanh_path($title);
         $page->image = $image;
         $page->content = $content;
-        $page->post_type = 1;
+        $page->post_type = IS_PAGE;
         $page->user_id = Auth::user()->id;
         $page->save();
         return redirect()->route('page.index')
@@ -139,7 +139,7 @@ class PageController extends Controller
         $page->path = chuyen_chuoi_thanh_path($title);
         $page->image = $image;
         $page->content = $content;
-        $page->post_type = 1;
+        $page->post_type = IS_PAGE;
         $page->user_id = Auth::user()->id;
         $page->save();
         return redirect()->route('page.index')
