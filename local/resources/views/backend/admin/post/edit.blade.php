@@ -38,7 +38,7 @@
                     <strong>Chuyên Mục</strong>
                     <select class="form-control" name="parent">'
                         @foreach($dd_categorie_posts as $key=>$data) {
-                        @if($data['index']==$post->post_type)
+                        @if($data['index']==$post->category_item_id)
                             <option value="{{$data['index']}}" selected>{{$data['value']}}</option>
                         @else
                             <option value="{{$data['index']}}">{{$data['value']}}</option>

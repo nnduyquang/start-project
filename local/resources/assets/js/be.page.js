@@ -12,5 +12,3 @@ integratedCKEDITOR('content-page',height=800);
 // }
 // =========================================================
 // $('#btnBrowseImagePage').filemanager('image');
-var domain = "/start-project/laravel-filemanager";
-$('#btnBrowseImagePage').filemanager('image', {prefix: domain});
