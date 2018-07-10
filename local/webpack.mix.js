@@ -63,9 +63,9 @@ mix
         'resources/assets/js/be.menu.js',
         'resources/assets/js/be.categoryproduct.js',
     ], '../js/backend.js')
-    // .copy([
-    //     'bower_components/font-awesome/web-fonts-with-css/webfonts/**'
-    // ], '../webfonts')
+    .copy([
+        'bower_components/font-awesome/web-fonts-with-css/webfonts/**'
+    ], '../webfonts')
     // .copy([
     //     'bower_components/nivo-slider/themes',
     // ], '../css/themes', false)

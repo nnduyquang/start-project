@@ -11,4 +11,3 @@ integratedCKEDITOR('content-page',height=800);
 //     }
 // }
 // =========================================================
-// $('#btnBrowseImagePage').filemanager('image');
