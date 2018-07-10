@@ -1,4 +1,7 @@
 @extends('backend.admin.master')
+@section('title-page')
+    Quản Lý Chuyên Mục
+@stop
 @section('styles')
 @stop
 @section('scripts')
@@ -7,11 +10,11 @@
     <div class="col-lg-12 margin-tb">
         <div class="row">
             <div class="col-md-8">
-                <h2>Quản Lý Chuyên Mục</h2>
+                {{--<h2>Quản Lý Chuyên Mục</h2>--}}
             </div>
             <div class="col-md-4 text-right">
                 @permission(('page-create'))
-                <a class="btn btn-success" href="{{ route('categorypost.create') }}"> Tạo Mới Chuyên Mục</a>
+                <a class="btn btn-success" href="{{ route('categorypost.create') }}"> Tạo Mới</a>
                 @endpermission
             </div>
         </div>

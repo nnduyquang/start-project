@@ -1,33 +1,28 @@
-<ul class="sidebar-menu" data-widget="tree">
-    <li class="header">HEADER</li>
+<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    {{--<li class="header">HEADER</li>--}}
     <!-- Optionally, you can add icons to the links -->
-    <li class="active"><a href="{{ route('dashboard') }}"><i class="fa fa-link"></i>
-            <span>Dashboard</span></a>
+    <li class="nav-item"><a class="nav-link active" href="{{ route('dashboard') }}"><i class="fa fa-link"></i>
+            <p>Dashboard</p></a>
     @if(Auth::user()->hasRole('admin')||Auth::user()->can('user-list'))
-        <li><a href="{{ route('users.index') }}"><i class="fa fa-link"></i> <span>Người Dùng</span></a>
+        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}"><i class="fa fa-link"></i> <p>Người Dùng</p></a>
         </li>
     @endif
     @if(Auth::user()->can('role-list'))
-        <li><a href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <span>Quyền</span></a></li>
+        <li  class="nav-item"><a class="nav-link" href="{{ route('roles.index') }}"><i class="fa fa-link"></i> <p>Quyền</p></a></li>
         @endif
-        {{--<li><a href="{{ route('emp.index') }}"><i class="fa fa-link"></i> <span>Quản Lý Nhân Viên</span></a>--}}
-        {{--</li>--}}
-        {{--<li><a href="{{ route('account.index') }}"><i class="fa fa-link"></i> <span>Tài Khoản</span></a>--}}
-        {{--</li>--}}
-        {{--<li><a href="{{ route('location.index') }}"><i class="fa fa-link"></i> <span>Địa Điểm</span></a>--}}
         </li>
-        <li><a href="{{ route('categorypost.index') }}"><i class="fa fa-link"></i> <span>Chuyên Mục Bài Viết</span></a>
+        <li  class="nav-item"><a class="nav-link" href="{{ route('categorypost.index') }}"><i class="fa fa-link"></i> <p>Chuyên Mục Bài Viết</p></a>
         </li>
-        <li><a href="{{ route('page.index') }}"><i class="fa fa-link"></i> <span>Trang</span></a>
+        <li  class="nav-item"><a class="nav-link" href="{{ route('page.index') }}"><i class="fa fa-link"></i> <p>Trang</p></a>
         </li>
-        <li><a href="{{ route('post.index') }}"><i class="fa fa-link"></i> <span>Bài Viết</span></a>
+        <li  class="nav-item"><a class="nav-link" href="{{ route('post.index') }}"><i class="fa fa-link"></i> <p>Bài Viết</p></a>
         </li>
-        <li><a href="{{ route('categoryproduct.index') }}"><i class="fa fa-link"></i>
-                <span>Chuyên Mục Sản Phẩm</span></a>
+        <li  class="nav-item"><a class="nav-link" href="{{ route('categoryproduct.index') }}"><i class="fa fa-link"></i>
+                <p>Chuyên Mục Sản Phẩm</p></a>
         </li>
-        <li><a href="{{ route('product.index') }}"><i class="fa fa-link"></i> <span>Sản Phẩm</span></a>
+        <li  class="nav-item"><a class="nav-link" href="{{ route('product.index') }}"><i class="fa fa-link"></i> <p>Sản Phẩm</p></a>
         </li>
-        <li><a href="{{ route('config.index') }}"><i class="fa fa-link"></i> <span>Cấu Hình</span></a>
+        <li  class="nav-item"><a class="nav-link" href="{{ route('config.index') }}"><i class="fa fa-link"></i> <p>Cấu Hình</p></a>
         </li>
 
         {{--<li><a href="{{ route('tuyendung.index') }}"><i class="fa fa-link"></i> <span>Tuyển Dụng</span></a>--}}

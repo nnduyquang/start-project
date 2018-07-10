@@ -1,10 +1,13 @@
 @extends('backend.admin.master')
+@section('title-page')
+    Cấu Hình Chung
+@stop
 @section('container')
     <div class="col-md-12">
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Cấu Hình Chung</h2>
+                    {{--<h2>Cấu Hình Chung</h2>--}}
                 </div>
             </div>
         </div>

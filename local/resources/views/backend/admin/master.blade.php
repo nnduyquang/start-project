@@ -1,1 +1,333 @@
-<!DOCTYPE html><html><head>    <meta charset="utf-8">    <meta http-equiv="X-UA-Compatible" content="IE=edge">    <title>Administrator</title>    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">    {{ Html::style('css/core.common.css') }}    {{ Html::style('css/core.backend.css') }}    {{ Html::style('css/backend.css') }}    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>    <link rel="stylesheet"          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"></head><body class="hold-transition skin-blue sidebar-mini"><div class="wrapper">    <header class="main-header">        <a href="index2.html" class="logo">            <span class="logo-mini"><b>A</b>LT</span>            <span class="logo-lg"><b>Quản Trị Website</b></span>        </a>        <nav class="navbar navbar-static-top" role="navigation">            <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">                <span class="sr-only">Toggle navigation</span>            </a>            <div class="navbar-custom-menu">                <ul class="nav navbar-nav">                    {{--<li class="dropdown messages-menu">--}}                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}                            {{--<i class="fa fa-envelope-o"></i>--}}                            {{--<span class="label label-success">4</span>--}}                        {{--</a>--}}                        {{--<ul class="dropdown-menu">--}}                            {{--<li class="header">You have 4 messages</li>--}}                            {{--<li>--}}                                {{--<ul class="menu">--}}                                    {{--<li><!-- start message -->--}}                                        {{--<a href="#">--}}                                            {{--<div class="pull-left">--}}                                                {{--<img src="dist/img/user2-160x160.jpg" class="img-circle"--}}                                                     {{--alt="User Image">--}}                                            {{--</div>--}}                                            {{--<h4>--}}                                                {{--Support Team--}}                                                {{--<small><i class="fa fa-clock-o"></i> 5 mins</small>--}}                                            {{--</h4>--}}                                            {{--<p>Why not buy a new awesome theme?</p>--}}                                        {{--</a>--}}                                    {{--</li>--}}                                {{--</ul>--}}                            {{--</li>--}}                            {{--<li class="footer"><a href="#">See All Messages</a></li>--}}                        {{--</ul>--}}                    {{--</li>--}}                    {{--<li class="dropdown notifications-menu">--}}                        {{--<!-- Menu toggle button -->--}}                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}                            {{--<i class="fa fa-bell-o"></i>--}}                            {{--<span class="label label-warning">10</span>--}}                        {{--</a>--}}                        {{--<ul class="dropdown-menu">--}}                            {{--<li class="header">You have 10 notifications</li>--}}                            {{--<li>--}}                                {{--<!-- Inner Menu: contains the notifications -->--}}                                {{--<ul class="menu">--}}                                    {{--<li><!-- start notification -->--}}                                        {{--<a href="#">--}}                                            {{--<i class="fa fa-users text-aqua"></i> 5 new members joined today--}}                                        {{--</a>--}}                                    {{--</li>--}}                                    {{--<!-- end notification -->--}}                                {{--</ul>--}}                            {{--</li>--}}                            {{--<li class="footer"><a href="#">View all</a></li>--}}                        {{--</ul>--}}                    {{--</li>--}}                    {{--<li class="dropdown tasks-menu">--}}                        {{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}}                            {{--<i class="fa fa-flag-o"></i>--}}                            {{--<span class="label label-danger">9</span>--}}                        {{--</a>--}}                        {{--<ul class="dropdown-menu">--}}                            {{--<li class="header">You have 9 tasks</li>--}}                            {{--<li>--}}                                {{--<ul class="menu">--}}                                    {{--<li>--}}                                        {{--<a href="#">--}}                                            {{--<h3>--}}                                                {{--Design some buttons--}}                                                {{--<small class="pull-right">20%</small>--}}                                            {{--</h3>--}}                                            {{--<div class="progress xs">--}}                                                {{--<div class="progress-bar progress-bar-aqua" style="width: 20%"--}}                                                     {{--role="progressbar"--}}                                                     {{--aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">--}}                                                    {{--<span class="sr-only">20% Complete</span>--}}                                                {{--</div>--}}                                            {{--</div>--}}                                        {{--</a>--}}                                    {{--</li>--}}                                {{--</ul>--}}                            {{--</li>--}}                            {{--<li class="footer">--}}                                {{--<a href="#">View all tasks</a>--}}                            {{--</li>--}}                        {{--</ul>--}}                    {{--</li>--}}                    <li class="dropdown user user-menu">                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">                            {{--<img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">--}}                            <!-- hidden-xs hides the username on small devices so only the image appears. -->                            <span class="hidden-xs">{{Auth::user()->name}}</span>                        </a>                        <ul class="dropdown-menu">                            <!-- The user image in the menu -->                            <li class="user-header">                                {{--<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">--}}                                <p>                                    {{Auth::user()->name}}                                    {{--<small>Member since Nov. 2012</small>--}}                                </p>                            </li>                            <!-- Menu Body -->                            {{--<li class="user-body">--}}                                {{--<div class="row">--}}                                    {{--<div class="col-xs-4 text-center">--}}                                        {{--<a href="#">Followers</a>--}}                                    {{--</div>--}}                                    {{--<div class="col-xs-4 text-center">--}}                                        {{--<a href="#">Sales</a>--}}                                    {{--</div>--}}                                    {{--<div class="col-xs-4 text-center">--}}                                        {{--<a href="#">Friends</a>--}}                                    {{--</div>--}}                                {{--</div>--}}                                {{--<!-- /.row -->--}}                            {{--</li>--}}                            <!-- Menu Footer-->                            <li class="user-footer">                                {{--<div class="pull-left">--}}                                    {{--<a href="#" class="btn btn-default btn-flat">Profile</a>--}}                                {{--</div>--}}                                <div class="pull-right">                                    <a href="{{URL::to('admin/sml_logout')}}" class="btn btn-default btn-flat">Sign out</a>                                </div>                            </li>                        </ul>                    </li>                    {{--<li>--}}                        {{--<a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>--}}                    {{--</li>--}}                </ul>            </div>        </nav>    </header>    <aside class="main-sidebar">        <section class="sidebar">            <div class="user-panel" style="display: block;height: 50px">                <div class="pull-left image">                    {{--<img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">--}}                </div>                <div class="pull-left info" style="left: 0">                    <p>Xin Chào: {{Auth::user()->name}}</p>                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>                </div>            </div>            <form action="#" method="get" class="sidebar-form">                <div class="input-group">                    <input type="text" name="q" class="form-control" placeholder="Search...">                    <span class="input-group-btn">              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>              </button>            </span>                </div>            </form>            @include('backend.admin.menu')        </section>    </aside>    <div class="content-wrapper">        <section class="content-header">            <h1>                Page Header                <small>Optional description</small>            </h1>            <ol class="breadcrumb">                <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>                <li class="active">Here</li>            </ol>        </section>        <section class="">            @yield('container')        </section>    </div>    <footer class="main-footer">        <div class="pull-right hidden-xs">            {{--Anything you want--}}        </div>        <strong>Copyright &copy; 2017 <a href="www.smartlinks.vn">Smartlinks.vn</a>.</strong> All rights reserved.    </footer>    <aside class="control-sidebar control-sidebar-dark">        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>        </ul>        <div class="tab-content">            <div class="tab-pane active" id="control-sidebar-home-tab">                <h3 class="control-sidebar-heading">Recent Activity</h3>                <ul class="control-sidebar-menu">                    <li>                        <a href="javascript:;">                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>                            <div class="menu-info">                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>                                <p>Will be 23 on April 24th</p>                            </div>                        </a>                    </li>                </ul>                <h3 class="control-sidebar-heading">Tasks Progress</h3>                <ul class="control-sidebar-menu">                    <li>                        <a href="javascript:;">                            <h4 class="control-sidebar-subheading">                                Custom Template Design                                <span class="pull-right-container">                    <span class="label label-danger pull-right">70%</span>                  </span>                            </h4>                            <div class="progress progress-xxs">                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>                            </div>                        </a>                    </li>                </ul>            </div>            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>            <div class="tab-pane" id="control-sidebar-settings-tab">                <form method="post">                    <h3 class="control-sidebar-heading">General Settings</h3>                    <div class="form-group">                        <label class="control-sidebar-subheading">                            Report panel usage                            <input type="checkbox" class="pull-right" checked>                        </label>                        <p>                            Some information about this general settings option                        </p>                    </div>                </form>            </div>        </div>    </aside>    <div class="control-sidebar-bg"></div></div>{{ Html::script('js/core.common.js') }}{{ Html::script('js/ulti.js') }}{{ Html::script('js/core.backend.js') }}{{ Html::script('js/ckeditor/ckeditor.js') }}{{ Html::script('js/backend.js') }}</body></html>
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>AdminLTE 3 | Starter</title>
+
+    {{ Html::style('css/core.common.css') }}
+    {{ Html::style('css/core.backend.css') }}
+    {{ Html::style('css/backend.css') }}
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+            </li>
+            {{--<li class="nav-item d-none d-sm-inline-block">--}}
+                {{--<a href="index3.html" class="nav-link">Home</a>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item d-none d-sm-inline-block">--}}
+                {{--<a href="#" class="nav-link">Contact</a>--}}
+            {{--</li>--}}
+        </ul>
+
+        <!-- SEARCH FORM -->
+        <form class="form-inline ml-3">
+            <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Right navbar links -->
+        {{--<ul class="navbar-nav ml-auto">--}}
+            {{--<!-- Messages Dropdown Menu -->--}}
+            {{--<li class="nav-item dropdown">--}}
+                {{--<a class="nav-link" data-toggle="dropdown" href="#">--}}
+                    {{--<i class="fa fa-comments-o"></i>--}}
+                    {{--<span class="badge badge-danger navbar-badge">3</span>--}}
+                {{--</a>--}}
+                {{--<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
+                    {{--<a href="#" class="dropdown-item">--}}
+                        {{--<!-- Message Start -->--}}
+                        {{--<div class="media">--}}
+                            {{--<img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">--}}
+                            {{--<div class="media-body">--}}
+                                {{--<h3 class="dropdown-item-title">--}}
+                                    {{--Brad Diesel--}}
+                                    {{--<span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>--}}
+                                {{--</h3>--}}
+                                {{--<p class="text-sm">Call me whenever you can...</p>--}}
+                                {{--<p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<!-- Message End -->--}}
+                    {{--</a>--}}
+                    {{--<div class="dropdown-divider"></div>--}}
+                    {{--<a href="#" class="dropdown-item">--}}
+                        {{--<!-- Message Start -->--}}
+                        {{--<div class="media">--}}
+                            {{--<img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">--}}
+                            {{--<div class="media-body">--}}
+                                {{--<h3 class="dropdown-item-title">--}}
+                                    {{--John Pierce--}}
+                                    {{--<span class="float-right text-sm text-muted"><i class="fa fa-star"></i></span>--}}
+                                {{--</h3>--}}
+                                {{--<p class="text-sm">I got your message bro</p>--}}
+                                {{--<p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<!-- Message End -->--}}
+                    {{--</a>--}}
+                    {{--<div class="dropdown-divider"></div>--}}
+                    {{--<a href="#" class="dropdown-item">--}}
+                        {{--<!-- Message Start -->--}}
+                        {{--<div class="media">--}}
+                            {{--<img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">--}}
+                            {{--<div class="media-body">--}}
+                                {{--<h3 class="dropdown-item-title">--}}
+                                    {{--Nora Silvester--}}
+                                    {{--<span class="float-right text-sm text-warning"><i class="fa fa-star"></i></span>--}}
+                                {{--</h3>--}}
+                                {{--<p class="text-sm">The subject goes here</p>--}}
+                                {{--<p class="text-sm text-muted"><i class="fa fa-clock-o mr-1"></i> 4 Hours Ago</p>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<!-- Message End -->--}}
+                    {{--</a>--}}
+                    {{--<div class="dropdown-divider"></div>--}}
+                    {{--<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>--}}
+                {{--</div>--}}
+            {{--</li>--}}
+            {{--<!-- Notifications Dropdown Menu -->--}}
+            {{--<li class="nav-item dropdown">--}}
+                {{--<a class="nav-link" data-toggle="dropdown" href="#">--}}
+                    {{--<i class="fa fa-bell-o"></i>--}}
+                    {{--<span class="badge badge-warning navbar-badge">15</span>--}}
+                {{--</a>--}}
+                {{--<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">--}}
+                    {{--<span class="dropdown-header">15 Notifications</span>--}}
+                    {{--<div class="dropdown-divider"></div>--}}
+                    {{--<a href="#" class="dropdown-item">--}}
+                        {{--<i class="fa fa-envelope mr-2"></i> 4 new messages--}}
+                        {{--<span class="float-right text-muted text-sm">3 mins</span>--}}
+                    {{--</a>--}}
+                    {{--<div class="dropdown-divider"></div>--}}
+                    {{--<a href="#" class="dropdown-item">--}}
+                        {{--<i class="fa fa-users mr-2"></i> 8 friend requests--}}
+                        {{--<span class="float-right text-muted text-sm">12 hours</span>--}}
+                    {{--</a>--}}
+                    {{--<div class="dropdown-divider"></div>--}}
+                    {{--<a href="#" class="dropdown-item">--}}
+                        {{--<i class="fa fa-file mr-2"></i> 3 new reports--}}
+                        {{--<span class="float-right text-muted text-sm">2 days</span>--}}
+                    {{--</a>--}}
+                    {{--<div class="dropdown-divider"></div>--}}
+                    {{--<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>--}}
+                {{--</div>--}}
+            {{--</li>--}}
+            {{--<li class="nav-item">--}}
+                {{--<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i--}}
+                            {{--class="fa fa-th-large"></i></a>--}}
+            {{--</li>--}}
+        {{--</ul>--}}
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+            {{--<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"--}}
+                 {{--style="opacity: .8">--}}
+            <span class="brand-text font-weight-light">Administrator</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    {{--<img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">--}}
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block">{{Auth::user()->name}}</a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                {{--<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">--}}
+                    {{--<!-- Add icons to the links using the .nav-icon class--}}
+                         {{--with font-awesome or any other icon font library -->--}}
+                    {{--<li class="nav-item has-treeview menu-open">--}}
+                        {{--<a href="#" class="nav-link active">--}}
+                            {{--<i class="nav-icon fa fa-dashboard"></i>--}}
+                            {{--<p>--}}
+                                {{--Starter Pages--}}
+                                {{--<i class="right fa fa-angle-left"></i>--}}
+                            {{--</p>--}}
+                        {{--</a>--}}
+                        {{--<ul class="nav nav-treeview">--}}
+                            {{--<li class="nav-item">--}}
+                                {{--<a href="#" class="nav-link active">--}}
+                                    {{--<i class="fa fa-circle-o nav-icon"></i>--}}
+                                    {{--<p>Active Page</p>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="nav-item">--}}
+                                {{--<a href="#" class="nav-link">--}}
+                                    {{--<i class="fa fa-circle-o nav-icon"></i>--}}
+                                    {{--<p>Inactive Page</p>--}}
+                                {{--</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    {{--<li class="nav-item">--}}
+                        {{--<a href="#" class="nav-link">--}}
+                            {{--<i class="nav-icon fa fa-th"></i>--}}
+                            {{--<p>--}}
+                                {{--Simple Link--}}
+                                {{--<span class="right badge badge-danger">New</span>--}}
+                            {{--</p>--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+                @include('backend.admin.menu')
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">@yield('title-page')</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            {{--<li class="breadcrumb-item active">Starter Page</li>--}}
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                @yield('container')
+                    {{--<div class="col-lg-6">--}}
+                        {{--<div class="card">--}}
+                            {{--<div class="card-body">--}}
+                                {{--<h5 class="card-title">Card title</h5>--}}
+
+                                {{--<p class="card-text">--}}
+                                    {{--Some quick example text to build on the card title and make up the bulk of the card's--}}
+                                    {{--content.--}}
+                                {{--</p>--}}
+
+                                {{--<a href="#" class="card-link">Card link</a>--}}
+                                {{--<a href="#" class="card-link">Another link</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+                        {{--<div class="card card-primary card-outline">--}}
+                            {{--<div class="card-body">--}}
+                                {{--<h5 class="card-title">Card title</h5>--}}
+
+                                {{--<p class="card-text">--}}
+                                    {{--Some quick example text to build on the card title and make up the bulk of the card's--}}
+                                    {{--content.--}}
+                                {{--</p>--}}
+                                {{--<a href="#" class="card-link">Card link</a>--}}
+                                {{--<a href="#" class="card-link">Another link</a>--}}
+                            {{--</div>--}}
+                        {{--</div><!-- /.card -->--}}
+                    {{--</div>--}}
+                    {{--<!-- /.col-md-6 -->--}}
+                    {{--<div class="col-lg-6">--}}
+                        {{--<div class="card">--}}
+                            {{--<div class="card-header">--}}
+                                {{--<h5 class="m-0">Featured</h5>--}}
+                            {{--</div>--}}
+                            {{--<div class="card-body">--}}
+                                {{--<h6 class="card-title">Special title treatment</h6>--}}
+
+                                {{--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>--}}
+                                {{--<a href="#" class="btn btn-primary">Go somewhere</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+                        {{--<div class="card card-primary card-outline">--}}
+                            {{--<div class="card-header">--}}
+                                {{--<h5 class="m-0">Featured</h5>--}}
+                            {{--</div>--}}
+                            {{--<div class="card-body">--}}
+                                {{--<h6 class="card-title">Special title treatment</h6>--}}
+
+                                {{--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>--}}
+                                {{--<a href="#" class="btn btn-primary">Go somewhere</a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<!-- /.col-md-6 -->--}}
+                {{--</div>--}}
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer" style="margin-left: 0!important;">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2018 <a href="http://smartlinks.vn">www.smartlinks.vn</a>.</strong> All rights reserved.
+    </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+{{--<script src="plugins/jquery/jquery.min.js"></script>--}}
+<!-- Bootstrap 4 -->
+{{--<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>--}}
+<!-- AdminLTE App -->
+{{--<script src="dist/js/adminlte.min.js"></script>--}}
+{{ Html::script('js/core.common.js') }}
+{{ Html::script('js/ulti.js') }}
+{{ Html::script('js/core.backend.js') }}
+{{ Html::script('js/ckeditor/ckeditor.js') }}
+{{ Html::script('js/backend.js') }}
+</body>
+</html>

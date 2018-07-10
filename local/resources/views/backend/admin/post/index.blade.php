@@ -1,4 +1,7 @@
 @extends('backend.admin.master')
+@section('title-page')
+    Quản Lý Bài Viết
+@stop
 @section('styles')
 @stop
 @section('scripts')
@@ -7,7 +10,7 @@
     <div class="col-lg-12 ">
         <div class="row">
             <div class="col-md-8">
-                <h2>Quản Lý Bài Viết</h2>
+                {{--<h2>Quản Lý Bài Viết</h2>--}}
             </div>
             <div class="col-md-4 text-right">
                 @permission(('post-create'))

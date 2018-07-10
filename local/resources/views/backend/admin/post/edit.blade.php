@@ -1,4 +1,7 @@
 @extends('backend.admin.master')
+@section('title-page')
+    Cập Nhật Bài Viết
+@stop
 @section('styles')
 @stop
 @section('scripts')
@@ -8,7 +11,7 @@
     <div class="col-lg-12">
         <div class="row">
             <div class="col-md-8">
-                <h2>Cập Nhật Bài Viết</h2>
+                {{--<h2>Cập Nhật Bài Viết</h2>--}}
             </div>
             <div class="col-md-4 text-right">
                 <a class="btn btn-primary" href="{{ route('post.index') }}"> Back</a>

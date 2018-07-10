@@ -20,7 +20,7 @@
     "bootstrap": "^4.1.*",
     "nivo-slider": "*",
     "fancybox": "^3.2.5",
-    "admin-lte": "^2.4.3",
+    "admin-lte": "v3.0.0-alpha.2",
     "gijgo": "^1.8.2",
     "ckeditor": "^4.8.0"
   }

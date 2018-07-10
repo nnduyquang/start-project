@@ -37,8 +37,8 @@ mix
     ], '../css/core.frontend.css')
     //CSS CORE BACKEND
     .styles([
-        'bower_components/admin-lte/dist/css/AdminLTE.min.css',
-        'bower_components/admin-lte/dist/css/skins/skin-blue.min.css',
+        'bower_components/admin-lte/dist/css/adminlte.min.css',
+        // 'bower_components/admin-lte/dist/css/skins/skin-blue.min.css',
         // 'bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css',
         'bower_components/gijgo/dist/combined/css/gijgo.min.css',
 
@@ -52,20 +52,21 @@ mix
     ], '../css/login.css')
 
     .styles([
-        'resources/assets/js/ulti.js',
         'resources/assets/js/login1.js',
     ], '../js/login.js')
     .styles([
         'resources/assets/js/ulti.js',
+    ], '../js/ulti.js')
+    .styles([
         'resources/assets/js/be.common.js',
         'resources/assets/js/be.page.js',
         'resources/assets/js/be.post.js',
         'resources/assets/js/be.menu.js',
         'resources/assets/js/be.categoryproduct.js',
     ], '../js/backend.js')
-    .copy([
-        'bower_components/font-awesome/web-fonts-with-css/webfonts/**'
-    ], '../webfonts')
+    // .copy([
+    //     'bower_components/font-awesome/web-fonts-with-css/webfonts/**'
+    // ], '../webfonts')
     // .copy([
     //     'bower_components/nivo-slider/themes',
     // ], '../css/themes', false)

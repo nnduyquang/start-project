@@ -1,4 +1,7 @@
 @extends('backend.admin.master')
+@section('title-page')
+    Quản Lý Trang
+@stop
 @section('styles')
 @stop
 @section('scripts')
@@ -7,11 +10,11 @@
     <div class="col-lg-12 margin-tb">
         <div class="row">
             <div class="col-md-8">
-                <h2>Quản Lý Trang</h2>
+                {{--<h2>Quản Lý Trang</h2>--}}
             </div>
             <div class="col-md-4 text-right">
                 @permission(('page-create'))
-                <a class="btn btn-success" href="{{ route('page.create') }}"> Tạo Mới Trang</a>
+                <a class="btn btn-success" href="{{ route('page.create') }}"> Tạo Mới</a>
                 @endpermission
             </div>
         </div>
