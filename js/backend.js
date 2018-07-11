@@ -1,38 +1,174 @@
-integratedCKEDITOR('description-page',height=200);
+integratedCKEDITOR('description-page', height = 200);
 // integratedCKEDITOR('seo-description',height=200);
 if ($('#btnBrowseImage').length) {
     var button1 = document.getElementById('btnBrowseImage');
     button1.onclick = function () {
-        selectFileWithKCFinder('pathImage','showHinh');
+        selectFileWithKCFinder('pathImage', 'showHinh');
     }
 }
 
-$('.ulti-copy').click(function(){
+$('.ulti-copy').click(function () {
     var selected = [];
-    $('input[type=checkbox][name=id\\[\\]]').each(function() {
+    $('input[type=checkbox][name=id\\[\\]]').each(function () {
         if ($(this).is(":checked")) {
             selected.push($(this).val());
         }
     });
-    if(selected.length!=0)
-    {
+    if (selected.length != 0) {
         $('input[name=listID]').val(selected);
         alert('Đã lưu sản phẩm');
     }
-    else{
+    else {
         alert('Mời bạn chọn sản phẩm');
     }
     console.log(selected);
     // alert(id[0]);
 });
-$('.ulti-paste').click(function(){
-    if( !$('input[name=listID]').val()){
+$('.ulti-paste').click(function () {
+    if (!$('input[name=listID]').val()) {
         alert('Bạn chưa Sao Chép Hoặc Chưa chọn sản phẩm');
     }
-    else{
+    else {
         $('#formPaste').submit();
     }
 });
+// SEO
+$("input[name='seo_keywords']").keyup(function () {
+    var getidTitle = $("#seo-part .content .show-pattern .title");
+    var getidDescription = $("#seo-part .content .show-pattern .description");
+    var strKeyword = $(this).val();
+    showError(strKeyword.toLowerCase(), getidTitle, getidDescription);
+})
+$("input[name='seo_title']").keyup(function () {
+    var getidTitle = $("#seo-part .content .show-pattern .title");
+    var getidDescription = $("#seo-part .content .show-pattern .description");
+    var strKeyword = $("input[name='seo_keywords']").val();
+    showError(strKeyword.toLowerCase(), getidTitle, getidDescription);
+    var getid = $("#seo-part .content .show-pattern .title");
+    getid.html($(this).val());
+    var titleWidth = getid.width();
+    if (titleWidth > 600) {
+        cutString(getid);
+        var temp = getid.html().lastIndexOf(' ');
+        getid.html(getid.html().substring(0, temp + 1) + '...');
+    }
+    resetSentence();
+});
+
+
+$("input[name='seo_title']").bind("paste", function (e) {
+    var getid = $("#seo-part .content .show-pattern .title");
+    var pasteText = e.originalEvent.clipboardData.getData('text');
+    getid.html(pasteText);
+    var titleWidth = getid.width();
+    if (titleWidth > 600) {
+        cutStringTitle(getid);
+        var temp = getid.html().lastIndexOf(' ');
+        getid.html(getid.html().substring(0, temp + 1) + '...');
+    }
+});
+
+$("textarea[name='seo_description']").keyup(function () {
+    var getid = $("#seo-part .content .show-pattern .description");
+    var getidTitle = $("#seo-part .content .show-pattern .title");
+    var getidDescription = $("#seo-part .content .show-pattern .description");
+    var strKeyword = $("input[name='seo_keywords']").val();
+    showError(strKeyword.toLowerCase(), getidTitle, getidDescription);
+    getid.html($(this).val());
+    var descriptionLength = getid.html().length;
+    if (descriptionLength > 150) {
+        cutStringDescription(getid);
+        var temp = getid.html().lastIndexOf(' ');
+        getid.html(getid.html().substring(0, temp + 1) + '...');
+    }
+    resetSentence();
+});
+
+$("input[name='title']").keyup(function () {
+    var link = change_alias($(this).val());
+    link = link.replace(/\s/g, "-");
+    $("span.link").html(getBaseURL()+link);
+    resetSentence();
+});
+
+
+function cutStringTitle(element) {
+    var widthStr = element.width();
+    var newString = '';
+    if (widthStr > 600) {
+        newString = element.html().substring(0, element.html().length - 1);
+        element.html(newString);
+        cutStringTitle(element);
+    }
+}
+
+function cutStringDescription(element) {
+    var descriptionLength = element.html().length;
+    if (descriptionLength > 150) {
+        element.html(element.html().substring(0, element.html().length - 1));
+        cutStringDescription(element);
+    }
+}
+
+function showError(strKeyword, getidTitle, getidDescription) {
+    var li = "";
+    $("ul.error-notice").css("display", 'block');
+    if (strKeyword.length > 3) {
+        if (getidTitle.html().toLowerCase().indexOf(strKeyword) == -1) {
+            li += '<li class="wrong">Từ khóa không chứa trong title<li>';
+        } else {
+            var checkText = getidTitle.html().substring(0, strKeyword.length).toLowerCase();
+            if (checkText.indexOf(strKeyword) == -1) {
+                li += '<li class="near">Từ khóa chứa trong title nhưng không nằm đầu câu<li>';
+            } else {
+                li += '<li class="right">Từ khóa chứa trong title<li>';
+            }
+        }
+        if (getidDescription.html().toLowerCase().indexOf(strKeyword) == -1) {
+            li += '<li class="wrong">Từ khóa không chứa trong description<li>';
+        } else {
+            li += '<li class="right">Từ khóa chứa trong description<li>';
+        }
+        $("ul.error-notice").html(li);
+
+    } else {
+        $("ul.error-notice").html('');
+    }
+}
+
+function change_alias(alias) {
+    var str = alias;
+    str = str.toLowerCase();
+    str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+    str = str.replace(/đ/g, "d");
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, " ");
+    str = str.replace(/ + /g, " ");
+    str = str.trim();
+    return str;
+}
+function resetSentence(){
+    var getidTitle = $("#seo-part .content .show-pattern .title");
+    var getidDescription = $("#seo-part .content .show-pattern .description");
+    var getidLink=$("#seo-part .content .show-pattern .link");
+    if(getidTitle.html().length==0){
+        getidTitle.html("Quick Brown Fox and The Lazy Dog - Demo Site")
+    }
+    if(getidDescription.html().length==0){
+        getidDescription.html("The story of quick brown fox and the lazy dog. An all time classic children's fairy tale that is helping people with typography and web design.")
+    }
+    if(getidLink.html().length==0){
+        getidLink.html("example.com/the-quick-brown-fox")
+    }
+    if($("input[name='title']").val().length==0){
+        getidLink.html("example.com/the-quick-brown-fox")
+    }
+}
+
 // integratedCKEDITOR('description-page',height=200);
 integratedCKEDITOR('content-page',height=800);
 // integratedCKEDITOR('seo-description-page',height=200);

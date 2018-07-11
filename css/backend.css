@@ -134,6 +134,69 @@ img {
   color: green;
 }
 
+#seo-part h3 {
+  display: block;
+  background-color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+#seo-part .content {
+  background: white;
+  padding: 10px 5px;
+  line-height: 1.5;
+}
+
+#seo-part .content .show-pattern {
+  margin-bottom: 20px;
+}
+
+#seo-part .content .show-pattern .title {
+  font-size: 18px;
+  color: #1a0dab;
+}
+
+#seo-part .content .show-pattern .link {
+  max-width: 558px;
+  color: #006621;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 14px;
+  display: block;
+}
+
+#seo-part .content .show-pattern .description {
+  overflow: hidden;
+  color: #545454;
+  line-height: 18px;
+  -webkit-line-clamp: 2;
+  max-width: 1800px;
+  display: block;
+}
+
+#seo-part .content ul.error-notice {
+  list-style: none;
+  padding: 5px 0;
+  display: none;
+}
+
+#seo-part .content ul.error-notice li {
+  font-style: italic;
+}
+
+#seo-part .content ul.error-notice li.right {
+  color: green;
+}
+
+#seo-part .content ul.error-notice li.wrong {
+  color: red;
+}
+
+#seo-part .content ul.error-notice li.near {
+  color: orange;
+}
+
 #menu-create, #menu-update {
   background-color: white;
 }

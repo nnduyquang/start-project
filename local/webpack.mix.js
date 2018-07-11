@@ -57,6 +57,7 @@ mix
     .styles([
         'resources/assets/js/ulti.js',
     ], '../js/ulti.js')
+
     .styles([
         'resources/assets/js/be.common.js',
         'resources/assets/js/be.page.js',

@@ -75,3 +75,59 @@
     }
   }
 }
+#seo-part{
+  h3{
+    display: block;
+    background-color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid #dcdcdc;
+  }
+  .content{
+    background: white;
+    padding: 10px 5px;
+    line-height: 1.5;
+    .show-pattern{
+      margin-bottom: 20px;
+      .title{
+        font-size: 18px;
+        color: #1a0dab;
+        //max-width: 512px;
+        //display: block;
+      }
+      .link{
+        max-width: 558px;
+        color: #006621;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 14px;
+        display: block;
+      }
+      .description{
+        overflow: hidden;
+        color: #545454;
+        line-height: 18px;
+        -webkit-line-clamp: 2;
+        max-width: 1800px;
+        display: block;
+      }
+    }
+    ul.error-notice{
+      list-style: none;
+      padding: 5px 0;
+      display: none;
+      li{
+        font-style: italic;
+      }
+      li.right{
+        color: green;
+      }
+      li.wrong{
+        color: red;
+      }
+      li.near{
+        color: orange;
+      }
+    }
+  }
+}

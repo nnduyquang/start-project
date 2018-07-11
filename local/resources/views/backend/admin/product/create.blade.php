@@ -83,7 +83,7 @@
             {!! Form::textarea('content',null,array('placeholder' => '','id'=>'content-page','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
         </div>
         <hr>
-        <div class="col-md-12 p-0">
+        <div id="seo-part" class="col-md-12 p-0">
             <div class="row no-gutters">
                 <h3>SEO</h3>
                 <div class="col-md-12">
