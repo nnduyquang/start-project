@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\CategoryItem;
-use App\Post;
+
+use App\Seo;
 use Illuminate\Http\Request;
 
 class CategoryPostController extends Controller
@@ -62,6 +63,7 @@ class CategoryPostController extends Controller
     public function store(Request $request)
     {
         $categorypost = new CategoryItem();
+        $seo=new Seo();
         $name = $request->input('name');
         $order = $request->input('order');
         $parentID = $request->input('parent');
@@ -89,19 +91,15 @@ class CategoryPostController extends Controller
         if (!IsNullOrEmptyString($description)) {
             $categorypost->description = $description;
         }
-        if (!IsNullOrEmptyString($seoTitle)) {
-            $categorypost->seo_title = $seoTitle;
-        }
-        if (!IsNullOrEmptyString($seoDescription)) {
-            $categorypost->seo_description = $seoDescription;
-        }
-        if (!IsNullOrEmptyString($seoKeywords)) {
-            $categorypost->seo_keywords = $seoKeywords;
-        }
+        $seo->seo_title= $seoTitle;
+        $seo->seo_description= $seoDescription;
+        $seo->seo_keywords= $seoKeywords;
+        $seo->save();
         $categorypost->name = $name;
         $categorypost->type = CATEGORY_POST;
         $categorypost->path = chuyen_chuoi_thanh_path($name);
         $categorypost->image = $image;
+        $categorypost->seo_id=$seo->id;
         $categorypost->save();
         return redirect()->route('categorypost.index')->with('success', 'Tạo Mới Thành Công Chuyên Mục');
     }
@@ -182,15 +180,10 @@ class CategoryPostController extends Controller
         if (!IsNullOrEmptyString($description)) {
             $categorypost->description = $description;
         }
-        if (!IsNullOrEmptyString($seoTitle)) {
-            $categorypost->seo_title = $seoTitle;
-        }
-        if (!IsNullOrEmptyString($seoDescription)) {
-            $categorypost->seo_description = $seoDescription;
-        }
-        if (!IsNullOrEmptyString($seoKeywords)) {
-            $categorypost->seo_keywords = $seoKeywords;
-        }
+        $categorypost->seos->seo_title = $seoTitle;
+        $categorypost->seos->seo_description = $seoDescription;
+        $categorypost->seos->seo_keywords = $seoKeywords;
+        $categorypost->seos->save();
         $categorypost->name = $name;
         $categorypost->type = CATEGORY_POST;
         $categorypost->path = chuyen_chuoi_thanh_path($name);
@@ -208,6 +201,7 @@ class CategoryPostController extends Controller
     public function destroy($id)
     {
         $categorypost = CategoryItem::find($id);
+        $categorypost->seos->delete();
         $categorypost->delete();
         return redirect()->route('categorypost.index')->with('success', 'Đã Xóa Thành Công');
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CategoryItem;
 use App\Post;
+use App\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,6 +54,7 @@ class PostController extends Controller
     {
 
         $post = new Post();
+        $seo=new Seo();
         $title = $request->input('title');
         $description = $request->input('description');
         $content = $request->input('content');
@@ -66,30 +68,25 @@ class PostController extends Controller
             $post->image = $image;
         }
         $categoryItemId = $request->input('parent');
-        if ($isActive) {
+        if (!IsNullOrEmptyString($isActive)) {
             $post->isActive = 1;
         } else {
             $post->isActive = 0;
         }
-        if ($description) {
+        if (!IsNullOrEmptyString($description)) {
             $post->description = $description;
         }
-        if ($seoTitle) {
-            $post->seo_title = $seoTitle;
-        }
-        if ($seoDescription) {
-            $post->seo_description = $seoDescription;
-        }
-        if ($seoKeywords) {
-            $post->seo_keywords = $seoKeywords;
-        }
+        $seo->seo_title= $seoTitle;
+        $seo->seo_description= $seoDescription;
+        $seo->seo_keywords= $seoKeywords;
+        $seo->save();
         $post->title = $title;
         $post->path = chuyen_chuoi_thanh_path($title);
-
         $post->content = $content;
         $post->category_item_id=$categoryItemId;
         $post->post_type = IS_POST;
         $post->user_id = Auth::user()->id;
+        $post->seo_id=$seo->id;
         $post->save();
         return redirect()->route('post.index')->with('success', 'Tạo Mới Thành Công Bài Viết');
     }
@@ -158,23 +155,18 @@ class PostController extends Controller
             $post->image = NULL;
         }
         $categoryItemId = $request->input('parent');
-        if ($isActive) {
+        if (!IsNullOrEmptyString($isActive)) {
             $post->isActive = 1;
         } else {
             $post->isActive = 0;
         }
-        if ($description) {
+        if (!IsNullOrEmptyString($description)) {
             $post->description = $description;
         }
-        if ($seoTitle) {
-            $post->seo_title = $seoTitle;
-        }
-        if ($seoDescription) {
-            $post->seo_description = $seoDescription;
-        }
-        if ($seoKeywords) {
-            $post->seo_keywords = $seoKeywords;
-        }
+        $post->seos->seo_title = $seoTitle;
+        $post->seos->seo_description = $seoDescription;
+        $post->seos->seo_keywords = $seoKeywords;
+        $post->seos->save();
         $post->title = $title;
         $post->path = chuyen_chuoi_thanh_path($title);
 
@@ -195,6 +187,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        $post->seos->delete();
         $post->delete();
         return redirect()->route('post.index')
             ->with('success', 'Đã Xóa Thành Công');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\CategoryItem;
 use App\Product;
+use App\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +57,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product();
+        $seo=new Seo();
         $name = $request->input('name');
         $description = $request->input('description');
         $content = $request->input('content');
@@ -98,15 +100,10 @@ class ProductController extends Controller
         if (!IsNullOrEmptyString($description)) {
             $product->description = $description;
         }
-        if (!IsNullOrEmptyString($seoTitle)) {
-            $product->seo_title = $seoTitle;
-        }
-        if (!IsNullOrEmptyString($seoDescription)) {
-            $product->seo_description = $seoDescription;
-        }
-        if (!IsNullOrEmptyString($seoKeywords)) {
-            $product->seo_keywords = $seoKeywords;
-        }
+        $seo->seo_title= $seoTitle;
+        $seo->seo_description= $seoDescription;
+        $seo->seo_keywords= $seoKeywords;
+        $seo->save();
         $image = $request->input('image');
         $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
 
@@ -117,6 +114,7 @@ class ProductController extends Controller
         $product->content = $content;
         $product->category_product_id = $categoryPostID;
         $product->user_id = Auth::user()->id;
+        $product->seo_id=$seo->id;
         $product->save();
         return redirect()->route('product.index')->with('success', 'Tạo Mới Thành Công Sản Phẩm');
     }
@@ -228,15 +226,10 @@ class ProductController extends Controller
         if (!IsNullOrEmptyString($description)) {
             $product->description = $description;
         }
-        if (!IsNullOrEmptyString($seoTitle)) {
-            $product->seo_title = $seoTitle;
-        }
-        if (!IsNullOrEmptyString($seoDescription)) {
-            $product->seo_description = $seoDescription;
-        }
-        if (!IsNullOrEmptyString($seoKeywords)) {
-            $product->seo_keywords = $seoKeywords;
-        }
+        $product->seos->seo_title = $seoTitle;
+        $product->seos->seo_description = $seoDescription;
+        $product->seos->seo_keywords = $seoKeywords;
+        $product->seos->save();
         $image = $request->input('image');
         $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
         $product->name = $name;
@@ -258,6 +251,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
+        $product->seos->delete();
         $product->delete();
         return redirect()->route('product.index')->with('success', 'Đã Xóa Thành Công');
     }

@@ -81,30 +81,38 @@
 
             </div>
             <hr>
-            <div class="col-md-12 p-0">
+            <div id="seo-part" class="col-md-12 p-0">
                 <h3>SEO</h3>
-                <div class="form-group">
-                    <strong>Tiêu Đề (title):</strong>
-                    {!! Form::text('seo_title',null, array('placeholder' => 'Tên','class' => 'form-control')) !!}
-                </div>
-                <div class="form-group">
-                    <strong>Mô Tả (description):</strong>
-                    {!! Form::textarea('seo_description',null,array('placeholder' => '','id'=>'seo-description-post','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <strong>Keywords (cách nhau dấu phẩy ','):</strong>
-                        {!! Form::text('seo_keywords',null, array('placeholder' => 'keywords cách nhau dấu phẩy','class' => 'form-control')) !!}
+                <div class="content">
+                    <div class="show-pattern">
+                        <span class="title">{{$post->seos->seo_title}}</span>
+                        <span class="link">{{URL::to('/')}}/{{$post->path}}</span>
+                        <span class="description">{{$post->seos->seo_description}}</span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Từ khóa cần SEO</strong>
+                            {!! Form::text('seo_keywords',$post->seos->seo_keywords, array('placeholder' => 'keywords cách nhau dấu phẩy','class' => 'form-control')) !!}
+                            <ul class="error-notice">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <strong>Tiêu Đề (title):</strong>
+                        {!! Form::text('seo_title',$post->seos->seo_title, array('placeholder' => 'Tên','class' => 'form-control')) !!}
+                    </div>
+                    <div class="col-md-12 form-group">
+                        <strong>Mô Tả (description):</strong>
+                        {!! Form::textarea('seo_description',$post->seos->seo_description,array('placeholder' => '','id'=>'seo-description-post','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
                     </div>
                 </div>
-                <div class="form-group">
-                    <strong>Kích Hoạt:</strong>
-                    <input {{$post->isActive==1?'checked':''}}  name="post_is_active" data-on="Có"
-                           data-off="Không"
-                           type="checkbox" data-toggle="toggle">
-                </div>
             </div>
-
+            <div class="col-md-12 form-group">
+                <strong>Kích Hoạt:</strong>
+                <input {{$post->isActive==1?'checked':''}}  name="post_is_active" data-on="Có"
+                       data-off="Không"
+                       type="checkbox" data-toggle="toggle">
+            </div>
             <div class="col-md-12" style="text-align:  center;">
                 <button id="btnDanhMuc" type="submit" class="btn btn-primary">Cập Nhật Bài Viết</button>
             </div>

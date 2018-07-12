@@ -25,8 +25,7 @@ mix
     ], '../js/core.frontend.js')
     .styles([
         'bower_components/admin-lte/dist/js/adminlte.min.js',
-        // 'bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js',
-        // 'vendor/unisharp/laravel-filemanager/public/js/lfm.js',
+        'bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js',
         'bower_components/gijgo/dist/combined/js/gijgo.min.js',
 
     ], '../js/core.backend.js')
@@ -38,8 +37,7 @@ mix
     //CSS CORE BACKEND
     .styles([
         'bower_components/admin-lte/dist/css/adminlte.min.css',
-        // 'bower_components/admin-lte/dist/css/skins/skin-blue.min.css',
-        // 'bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css',
+        'bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css',
         'bower_components/gijgo/dist/combined/css/gijgo.min.css',
 
     ], '../css/core.backend.css')

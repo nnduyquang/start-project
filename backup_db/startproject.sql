@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 12, 2018 lúc 05:08 AM
+-- Thời gian đã tạo: Th6 05, 2018 lúc 06:15 AM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.0.29
 
@@ -38,11 +38,13 @@ CREATE TABLE `category_items` (
   `level` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `parent_id` int(10) UNSIGNED DEFAULT NULL,
   `type` tinyint(4) NOT NULL DEFAULT '0',
+  `seo_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` longtext COLLATE utf8mb4_unicode_ci,
+  `seo_keywords` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `order` int(11) NOT NULL DEFAULT '1',
   `isActive` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `seo_id` int(10) UNSIGNED NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -125,19 +127,6 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Đang đổ dữ liệu cho bảng `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
-(2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2018_03_14_140923_create_entrust_setup_tables', 1),
-(4, '2018_07_12_085612_create_seos_table', 2),
-(5, '2018_07_12_090313_add_seo_id_to_posts_table', 3),
-(6, '2018_07_12_091007_add_seo_id_to_products_table', 4),
-(7, '2018_07_12_091116_add_seo_id_to_category_items_table', 5);
 
 -- --------------------------------------------------------
 
@@ -251,13 +240,15 @@ CREATE TABLE `posts` (
   `description` longtext COLLATE utf8mb4_unicode_ci,
   `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` longtext COLLATE utf8mb4_unicode_ci,
+  `seo_keywords` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `post_type` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
   `isActive` tinyint(1) NOT NULL DEFAULT '1',
   `category_item_id` int(11) DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `seo_id` int(10) UNSIGNED NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -275,6 +266,9 @@ CREATE TABLE `products` (
   `description` longtext COLLATE utf8mb4_unicode_ci,
   `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci,
+  `seo_keywords` text COLLATE utf8mb4_unicode_ci,
   `price` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '0',
   `sale` int(11) NOT NULL DEFAULT '0',
   `final_price` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT '0',
@@ -282,8 +276,7 @@ CREATE TABLE `products` (
   `user_id` int(10) UNSIGNED NOT NULL,
   `category_product_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `seo_id` int(10) UNSIGNED NOT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -329,21 +322,6 @@ INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `seos`
---
-
-CREATE TABLE `seos` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `seo_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_keywords` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `users`
 --
 
@@ -372,8 +350,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `creat
 -- Chỉ mục cho bảng `category_items`
 --
 ALTER TABLE `category_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `category_items_seo_id_foreign` (`seo_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `category_permissions`
@@ -427,8 +404,7 @@ ALTER TABLE `permission_role`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `posts_user_id_foreign` (`user_id`),
-  ADD KEY `posts_seo_id_foreign` (`seo_id`);
+  ADD KEY `posts_user_id_foreign` (`user_id`);
 
 --
 -- Chỉ mục cho bảng `products`
@@ -436,8 +412,7 @@ ALTER TABLE `posts`
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `products_user_id_foreign` (`user_id`),
-  ADD KEY `products_category_product_id_foreign` (`category_product_id`),
-  ADD KEY `products_seo_id_foreign` (`seo_id`);
+  ADD KEY `products_category_product_id_foreign` (`category_product_id`);
 
 --
 -- Chỉ mục cho bảng `roles`
@@ -452,12 +427,6 @@ ALTER TABLE `roles`
 ALTER TABLE `role_user`
   ADD PRIMARY KEY (`user_id`,`role_id`),
   ADD KEY `role_user_role_id_foreign` (`role_id`);
-
---
--- Chỉ mục cho bảng `seos`
---
-ALTER TABLE `seos`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Chỉ mục cho bảng `users`
@@ -498,7 +467,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -525,12 +494,6 @@ ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT cho bảng `seos`
---
-ALTER TABLE `seos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT cho bảng `users`
 --
 ALTER TABLE `users`
@@ -539,12 +502,6 @@ ALTER TABLE `users`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
-
---
--- Các ràng buộc cho bảng `category_items`
---
-ALTER TABLE `category_items`
-  ADD CONSTRAINT `category_items_seo_id_foreign` FOREIGN KEY (`seo_id`) REFERENCES `seos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `configs`
@@ -569,7 +526,6 @@ ALTER TABLE `permission_role`
 -- Các ràng buộc cho bảng `posts`
 --
 ALTER TABLE `posts`
-  ADD CONSTRAINT `posts_seo_id_foreign` FOREIGN KEY (`seo_id`) REFERENCES `seos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -577,7 +533,6 @@ ALTER TABLE `posts`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_category_product_id_foreign` FOREIGN KEY (`category_product_id`) REFERENCES `category_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `products_seo_id_foreign` FOREIGN KEY (`seo_id`) REFERENCES `seos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `products_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

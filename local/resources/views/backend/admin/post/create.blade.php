@@ -78,24 +78,24 @@
                         </ul>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="col-md-12 form-group">
                     <strong>Tiêu Đề (title):</strong>
                     {!! Form::text('seo_title',null, array('placeholder' => 'Tên','class' => 'form-control')) !!}
                 </div>
-                <div class="form-group">
+                <div class="col-md-12 form-group">
                     <strong>Mô Tả (description):</strong>
                     {!! Form::textarea('seo_description',null,array('placeholder' => '','id'=>'seo-description-post','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
                 </div>
-
-                <div class="form-group">
-                    <strong>Kích Hoạt:</strong>
-                    <input name="post_is_active" data-on="Có" data-off="Không" type="checkbox" data-toggle="toggle">
-                </div>
-            </div>
-            <div class="col-md-12" style="text-align:  center;">
-                <button id="btnDanhMuc" type="submit" class="btn btn-primary">Tạo Mới Bài Viết</button>
             </div>
         </div>
+        <div class="col-md-12 form-group">
+            <strong>Kích Hoạt:</strong>
+            <input name="post_is_active" data-on="Có" data-off="Không" type="checkbox" data-toggle="toggle">
+        </div>
+        <div class="col-md-12" style="text-align:  center;">
+            <button id="btnDanhMuc" type="submit" class="btn btn-primary">Tạo Mới Bài Viết</button>
+        </div>
+
     </div>
     {!! Form::close() !!}
 @stop

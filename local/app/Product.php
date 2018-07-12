@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'id','name','path','description','content','code' ,'image','isActive','seo_title','seo_description','seo_keywords','price','sale','final_price','user_id','category_product_id','created_at','updated_at'
+        'id','name','path','description','content','code' ,'image','isActive','price','sale','final_price','user_id','category_product_id','seo_id','created_at','updated_at'
     ];
     protected $hidden = ['id'];
     public function users()
@@ -17,5 +17,8 @@ class Product extends Model
     public function categoryproduct()
     {
         return $this->belongsTo('App\CategoryItem', 'category_product_id');
+    }
+    public function seos(){
+        return $this->belongsTo('App\Seo','seo_id');
     }
 }

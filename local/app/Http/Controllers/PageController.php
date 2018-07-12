@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Seo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {
-        $pages = Post::where('post_type','=',IS_POST)->orderBy('id', 'DESC')->get();
+        $pages = Post::where('post_type','=',IS_PAGE)->orderBy('id', 'DESC')->get();
         return view('backend.admin.page.index', compact('pages'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -39,6 +40,7 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $page = new Post();
+        $seo=new Seo();
         $title = $request->input('title');
         $description = $request->input('description');
         $content = $request->input('content');
@@ -48,29 +50,25 @@ class PageController extends Controller
         $isActive = $request->input('page_is_active');
         $image = $request->input('image');
         $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
-        if ($isActive) {
+        if (!IsNullOrEmptyString($isActive)) {
             $page->isActive = 1;
         } else {
             $page->isActive = 0;
         }
-        if ($description) {
+        if (!IsNullOrEmptyString($description)) {
             $page->description = $description;
         }
-        if ($seoTitle) {
-            $page->seo_title = $seoTitle;
-        }
-        if ($seoDescription) {
-            $page->seo_description = $seoDescription;
-        }
-        if ($seoKeywords) {
-            $page->seo_keywords = $seoKeywords;
-        }
+        $seo->seo_title= $seoTitle;
+        $seo->seo_description= $seoDescription;
+        $seo->seo_keywords= $seoKeywords;
+        $seo->save();
         $page->title = $title;
         $page->path = chuyen_chuoi_thanh_path($title);
         $page->image = $image;
         $page->content = $content;
         $page->post_type = IS_PAGE;
         $page->user_id = Auth::user()->id;
+        $page->seo_id=$seo->id;
         $page->save();
         return redirect()->route('page.index')
             ->with('success', 'Tạo Mới Thành Công Trang');
@@ -118,23 +116,18 @@ class PageController extends Controller
         $isActive = $request->input('page_is_active');
         $image = $request->input('image');
         $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
-        if ($isActive) {
+        if (!IsNullOrEmptyString($isActive)) {
             $page->isActive = 1;
         } else {
             $page->isActive = 0;
         }
-        if ($description) {
+        if (!IsNullOrEmptyString($description)) {
             $page->description = $description;
         }
-        if ($seoTitle) {
-            $page->seo_title = $seoTitle;
-        }
-        if ($seoDescription) {
-            $page->seo_description = $seoDescription;
-        }
-        if ($seoKeywords) {
-            $page->seo_keywords = $seoKeywords;
-        }
+        $page->seos->seo_title = $seoTitle;
+        $page->seos->seo_description = $seoDescription;
+        $page->seos->seo_keywords = $seoKeywords;
+        $page->seos->save();
         $page->title = $title;
         $page->path = chuyen_chuoi_thanh_path($title);
         $page->image = $image;
@@ -155,6 +148,7 @@ class PageController extends Controller
     public function destroy($id)
     {
         $page = Post::find($id);
+        $page->seos->delete();
         $page->delete();
         return redirect()->route('page.index')
             ->with('success', 'Đã Xóa Thành Công');

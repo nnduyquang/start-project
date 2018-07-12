@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CategoryItem;
-use App\Post;
+use App\Seo;
 use Illuminate\Http\Request;
 
 class CategoryProductController extends Controller
@@ -62,6 +62,7 @@ class CategoryProductController extends Controller
     public function store(Request $request)
     {
         $categoryproduct = new CategoryItem();
+        $seo=new Seo();
         $name = $request->input('name');
         $order = $request->input('order');
         $parentID = $request->input('parent');
@@ -91,20 +92,16 @@ class CategoryProductController extends Controller
         if (!IsNullOrEmptyString($description)) {
             $categoryproduct->description = $description;
         }
-        if (!IsNullOrEmptyString($seoTitle)) {
-            $categoryproduct->seo_title = $seoTitle;
-        }
-        if (!IsNullOrEmptyString($seoDescription)) {
-            $categoryproduct->seo_description = $seoDescription;
-        }
-        if (!IsNullOrEmptyString($seoKeywords)) {
-            $categoryproduct->seo_keywords = $seoKeywords;
-        }
+        $seo->seo_title= $seoTitle;
+        $seo->seo_description= $seoDescription;
+        $seo->seo_keywords= $seoKeywords;
+        $seo->save();
         $categoryproduct->name = $name;
         $categoryproduct->type = CATEGORY_PRODUCT;
         $categoryproduct->path = chuyen_chuoi_thanh_path($name);
         $categoryproduct->image = $image;
         $categoryproduct->image_mobile = $imageMobile;
+        $categoryproduct->seo_id=$seo->id;
         $categoryproduct->save();
         return redirect()->route('categoryproduct.index')->with('success', 'Tạo Mới Thành Công Chuyên Mục');
     }
@@ -187,15 +184,10 @@ class CategoryProductController extends Controller
         if (!IsNullOrEmptyString($description)) {
             $categoryproduct->description = $description;
         }
-        if (!IsNullOrEmptyString($seoTitle)) {
-            $categoryproduct->seo_title = $seoTitle;
-        }
-        if (!IsNullOrEmptyString($seoDescription)) {
-            $categoryproduct->seo_description = $seoDescription;
-        }
-        if (!IsNullOrEmptyString($seoKeywords)) {
-            $categoryproduct->seo_keywords = $seoKeywords;
-        }
+        $categoryproduct->seos->seo_title = $seoTitle;
+        $categoryproduct->seos->seo_description = $seoDescription;
+        $categoryproduct->seos->seo_keywords = $seoKeywords;
+        $categoryproduct->seos->save();
         $categoryproduct->name = $name;
         $categoryproduct->type = CATEGORY_PRODUCT;
         $categoryproduct->path = chuyen_chuoi_thanh_path($name);
@@ -214,6 +206,7 @@ class CategoryProductController extends Controller
     public function destroy($id)
     {
         $categoryproduct = CategoryItem::find($id);
+        $categoryproduct->seos->delete();
         $categoryproduct->delete();
         return redirect()->route('categoryproduct.index')->with('success', 'Đã Xóa Thành Công');
     }
