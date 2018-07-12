@@ -37,13 +37,20 @@ $("input[name='seo_keywords']").keyup(function () {
     var getidTitle = $("#seo-part .content .show-pattern .title");
     var getidDescription = $("#seo-part .content .show-pattern .description");
     var strKeyword = $(this).val();
-    showError(strKeyword.toLowerCase(), getidTitle, getidDescription);
+    strKeyword = replace_special_character_by_comma(strKeyword);
+    if (strKeyword.length > 3) {
+        if (strKeyword.substr(strKeyword.length - 1)===strKeyword.substr(strKeyword.length - 2,1)) {
+            strKeyword=strKeyword.substr(0,strKeyword.length - 1);
+        }
+    }
+    $(this).val(strKeyword);
+    showErrorSEO(strKeyword.toLowerCase(), getidTitle, getidDescription);
 })
 $("input[name='seo_title']").keyup(function () {
     var getidTitle = $("#seo-part .content .show-pattern .title");
     var getidDescription = $("#seo-part .content .show-pattern .description");
     var strKeyword = $("input[name='seo_keywords']").val();
-    showError(strKeyword.toLowerCase(), getidTitle, getidDescription);
+    showErrorSEO(strKeyword.toLowerCase(), getidTitle, getidDescription);
     var getid = $("#seo-part .content .show-pattern .title");
     getid.html($(this).val());
     var titleWidth = getid.width();
@@ -73,7 +80,7 @@ $("textarea[name='seo_description']").keyup(function () {
     var getidTitle = $("#seo-part .content .show-pattern .title");
     var getidDescription = $("#seo-part .content .show-pattern .description");
     var strKeyword = $("input[name='seo_keywords']").val();
-    showError(strKeyword.toLowerCase(), getidTitle, getidDescription);
+    showErrorSEO(strKeyword.toLowerCase(), getidTitle, getidDescription);
     getid.html($(this).val());
     var descriptionLength = getid.html().length;
     if (descriptionLength > 150) {
@@ -87,7 +94,7 @@ $("textarea[name='seo_description']").keyup(function () {
 $("input[name='title']").keyup(function () {
     var link = change_alias($(this).val());
     link = link.replace(/\s/g, "-");
-    $("span.link").html(getBaseURL()+link);
+    $("span.link").html(getBaseURL() + link);
     resetSentence();
 });
 
@@ -110,25 +117,38 @@ function cutStringDescription(element) {
     }
 }
 
-function showError(strKeyword, getidTitle, getidDescription) {
+function showErrorSEO(strKeyword, getidTitle, getidDescription) {
     var li = "";
     $("ul.error-notice").css("display", 'block');
     if (strKeyword.length > 3) {
-        if (getidTitle.html().toLowerCase().indexOf(strKeyword) == -1) {
-            li += '<li class="wrong">Từ khóa không chứa trong title<li>';
-        } else {
-            var checkText = getidTitle.html().substring(0, strKeyword.length).toLowerCase();
-            if (checkText.indexOf(strKeyword) == -1) {
-                li += '<li class="near">Từ khóa chứa trong title nhưng không nằm đầu câu<li>';
-            } else {
-                li += '<li class="right">Từ khóa chứa trong title<li>';
+        var listKeywords = strKeyword.trim().split(',');
+        listKeywords.forEach(function (i, idx, array) {
+            if (!isNullOrEmpty(i)) {
+                if (getidTitle.html().toLowerCase().indexOf(i.trim()) != -1) {
+                    var checkText = getidTitle.html().substring(0, i.length).toLowerCase();
+                    if (checkText.indexOf(i.trim()) == -1) {
+                        li += '<li class="near">Từ khóa [' + i.trim() + ']  chứa trong title nhưng không nằm đầu câu<li>';
+                        return false;
+                    } else {
+                        li += '<li class="right">Từ khóa [' + i.trim() + '] chứa trong title<li>';
+                        return false;
+                    }
+                    return false;
+                } else {
+                    li += '<li class="wrong">Từ khóa [' + i.trim() + '] không chứa trong title<li>';
+                    return false;
+                }
             }
-        }
-        if (getidDescription.html().toLowerCase().indexOf(strKeyword) == -1) {
-            li += '<li class="wrong">Từ khóa không chứa trong description<li>';
-        } else {
-            li += '<li class="right">Từ khóa chứa trong description<li>';
-        }
+        });
+        listKeywords.forEach(function (i, idx, array) {
+            if (!isNullOrEmpty(i)) {
+                if (getidDescription.html().toLowerCase().indexOf(i.trim()) == -1) {
+                    li += '<li class="wrong">Từ khóa [' + i.trim() + '] không chứa trong description<li>';
+                } else {
+                    li += '<li class="right">Từ khóa [' + i.trim() + '] chứa trong description<li>';
+                }
+            }
+        });
         $("ul.error-notice").html(li);
 
     } else {
@@ -151,20 +171,31 @@ function change_alias(alias) {
     str = str.trim();
     return str;
 }
-function resetSentence(){
+
+function replace_special_character_by_comma(alias) {
+    var str = alias;
+    str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, ",");
+    return str;
+}
+
+function resetSentence() {
     var getidTitle = $("#seo-part .content .show-pattern .title");
     var getidDescription = $("#seo-part .content .show-pattern .description");
-    var getidLink=$("#seo-part .content .show-pattern .link");
-    if(getidTitle.html().length==0){
+    var getidLink = $("#seo-part .content .show-pattern .link");
+    if (getidTitle.html().length == 0) {
         getidTitle.html("Quick Brown Fox and The Lazy Dog - Demo Site")
     }
-    if(getidDescription.html().length==0){
+    if (getidDescription.html().length == 0) {
         getidDescription.html("The story of quick brown fox and the lazy dog. An all time classic children's fairy tale that is helping people with typography and web design.")
     }
-    if(getidLink.html().length==0){
+    if (getidLink.html().length == 0) {
         getidLink.html("example.com/the-quick-brown-fox")
     }
-    if($("input[name='title']").val().length==0){
+    if ($("input[name='title']").length == 0) {
         getidLink.html("example.com/the-quick-brown-fox")
     }
+}
+
+function isNullOrEmpty(s) {
+    return (s == null || s === "");
 }

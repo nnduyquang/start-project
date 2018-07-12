@@ -73,7 +73,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <strong>Từ khóa cần SEO</strong>
-                    {!! Form::text('seo_keywords',null, array('placeholder' => 'keywords cách nhau dấu phẩy','class' => 'form-control')) !!}
+                    {!! Form::text('seo_keywords',null, array('placeholder' => 'từ khóa cách nhau dấu phẩy (tối đa 5 từ)','class' => 'form-control')) !!}
                     <ul class="error-notice">
                     </ul>
                 </div>
