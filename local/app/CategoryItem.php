@@ -14,4 +14,7 @@ class CategoryItem extends Model
     public function seos(){
         return $this->belongsTo('App\Seo','seo_id');
     }
+    public function item(){
+        return $this->belongsToMany('App\CategoryItem','category_many','category_id','item_id')->withTimestamps();
+    }
 }

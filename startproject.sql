@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 12, 2018 lúc 05:08 AM
+-- Thời gian đã tạo: Th7 17, 2018 lúc 06:22 AM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.0.29
 
@@ -44,6 +44,38 @@ CREATE TABLE `category_items` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `seo_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `category_items`
+--
+
+INSERT INTO `category_items` (`id`, `name`, `path`, `description`, `image`, `image_mobile`, `level`, `parent_id`, `type`, `order`, `isActive`, `created_at`, `updated_at`, `seo_id`) VALUES
+(1, 'Test 1', 'test-1', '<p>\r\n	Test 1\r\n</p>', 'images/uploads/images/gt_1.jpg', NULL, 0, NULL, 0, 1, 1, '2018-07-17 02:13:46', '2018-07-17 02:13:46', 1),
+(2, 'Test 2', 'test-2', '<p>\r\n	Test 2\r\n</p>', 'images/uploads/images/gt_1.jpg', NULL, 0, NULL, 0, 2, 1, '2018-07-17 02:14:03', '2018-07-17 02:14:03', 2),
+(3, 'Test 3', 'test-3', '<p>\r\n	Test 3\r\n</p>', 'images/uploads/images/gt_1.jpg', NULL, 0, NULL, 0, 3, 1, '2018-07-17 02:14:21', '2018-07-17 02:14:21', 3),
+(4, 'test1-1', 'test1-1', '<p>\r\n	test1-1\r\n</p>', 'images/uploads/images/gt_1.jpg', NULL, 1, 1, 0, 5, 1, '2018-07-17 02:24:13', '2018-07-17 02:24:13', 4),
+(5, 'test 5', 'test-5', '<p>\r\n	test 5\r\n</p>', 'images/uploads/images/gt_1.jpg', NULL, 0, NULL, 0, 5, 1, '2018-07-17 02:32:23', '2018-07-17 02:32:23', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `category_many`
+--
+
+CREATE TABLE `category_many` (
+  `category_id` int(10) UNSIGNED NOT NULL,
+  `item_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `category_many`
+--
+
+INSERT INTO `category_many` (`category_id`, `item_id`, `created_at`, `updated_at`) VALUES
+(1, 1, '2018-07-17 03:18:34', '2018-07-17 03:18:34'),
+(5, 1, '2018-07-17 04:08:02', '2018-07-17 04:08:02');
 
 -- --------------------------------------------------------
 
@@ -137,7 +169,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2018_07_12_085612_create_seos_table', 2),
 (5, '2018_07_12_090313_add_seo_id_to_posts_table', 3),
 (6, '2018_07_12_091007_add_seo_id_to_products_table', 4),
-(7, '2018_07_12_091116_add_seo_id_to_category_items_table', 5);
+(7, '2018_07_12_091116_add_seo_id_to_category_items_table', 5),
+(8, '2018_07_17_084914_create_category_many_table', 6);
 
 -- --------------------------------------------------------
 
@@ -260,6 +293,13 @@ CREATE TABLE `posts` (
   `seo_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `posts`
+--
+
+INSERT INTO `posts` (`id`, `title`, `path`, `description`, `content`, `image`, `post_type`, `isActive`, `category_item_id`, `user_id`, `created_at`, `updated_at`, `seo_id`) VALUES
+(1, 'test bài viết', 'test-bai-viet', '<p>\r\n	test bài viết\r\n</p>', '<p>\r\n	test bài viết\r\n</p>', 'images/uploads/images/gt_1.jpg', 1, 1, NULL, 1, '2018-07-17 03:18:34', '2018-07-17 03:18:34', 7);
+
 -- --------------------------------------------------------
 
 --
@@ -341,6 +381,19 @@ CREATE TABLE `seos` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `seos`
+--
+
+INSERT INTO `seos` (`id`, `seo_title`, `seo_description`, `seo_keywords`, `created_at`, `updated_at`) VALUES
+(1, 'Test 1', 'Test 1', 'Test 1', '2018-07-17 02:13:46', '2018-07-17 02:13:46'),
+(2, 'Test 2', 'Test 2', 'Test 2', '2018-07-17 02:14:03', '2018-07-17 02:14:03'),
+(3, 'Test 3', 'Test 3', 'Test 3', '2018-07-17 02:14:21', '2018-07-17 02:14:21'),
+(4, 'test1-1', 'test1-1', 'test1,1', '2018-07-17 02:24:13', '2018-07-17 02:24:13'),
+(5, 'test 5', 'test 5', 'test 5', '2018-07-17 02:32:23', '2018-07-17 02:32:23'),
+(6, 'test bài viết', 'test bài viết', 'test bài viết', '2018-07-17 03:13:47', '2018-07-17 03:13:47'),
+(7, 'test bài viết', 'test bài viết', 'test bài viết', '2018-07-17 03:18:34', '2018-07-17 03:18:34');
+
 -- --------------------------------------------------------
 
 --
@@ -374,6 +427,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `creat
 ALTER TABLE `category_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `category_items_seo_id_foreign` (`seo_id`);
+
+--
+-- Chỉ mục cho bảng `category_many`
+--
+ALTER TABLE `category_many`
+  ADD PRIMARY KEY (`category_id`,`item_id`);
 
 --
 -- Chỉ mục cho bảng `category_permissions`
@@ -474,7 +533,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `category_items`
 --
 ALTER TABLE `category_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `category_permissions`
@@ -498,7 +557,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT cho bảng `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`
@@ -510,7 +569,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT cho bảng `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -528,7 +587,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT cho bảng `seos`
 --
 ALTER TABLE `seos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `users`

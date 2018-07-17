@@ -55,7 +55,7 @@
                 <th>Người Đăng</th>
                 <th>Ngày Đăng</th>
                 <th>Ngày Cập Nhật</th>
-                <th>Chuyên Mục</th>
+                {{--<th>Chuyên Mục</th>--}}
                 <th width="280px">Action</th>
             </tr>
             @foreach ($posts as $key => $data)
@@ -65,7 +65,7 @@
                 <td>{{ $data->users->name }}</td>
                 <td>{{ $data->created_at }}</td>
                 <td>{{ $data->updated_at }}</td>
-                <td>{{$data->categoryitem->name}}</td>
+                {{--<td>{{$data->categoryitem->name}}</td>--}}
                 <td>
                     @permission(('post-edit'))
                     <a class="btn btn-primary" href="{{ route('post.edit',$data->id) }}">Cập Nhật</a>

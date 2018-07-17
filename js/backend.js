@@ -39,8 +39,6 @@ $("input[name='seo_keywords']").keyup(function () {
     var strKeyword = $(this).val();
     strKeyword = replace_special_character_by_comma(strKeyword);
     if (strKeyword.length > 3) {
-        console.log('first: '+strKeyword.substr(strKeyword.length - 1));
-        console.log('last: '+strKeyword.substr(strKeyword.length - 2,1));
         if (strKeyword.substr(strKeyword.length - 1)===strKeyword.substr(strKeyword.length - 2,1)) {
             strKeyword=strKeyword.substr(0,strKeyword.length - 1);
         }

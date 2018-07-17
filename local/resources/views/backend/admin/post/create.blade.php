@@ -35,9 +35,21 @@
                     <strong>Tên Bài Viết:</strong>
                     {!! Form::text('title',null, array('placeholder' => 'Tên','class' => 'form-control')) !!}
                 </div>
+                {{--<div class="form-group">--}}
+                {{--<strong>Chuyên Mục</strong>--}}
+                {{--{!! Form::select('parent',$dd_categorie_posts, null,array('class' => 'form-control')) !!}--}}
+                {{--</div>--}}
                 <div class="form-group">
                     <strong>Chuyên Mục</strong>
-                    {!! Form::select('parent',$dd_categorie_posts, null,array('class' => 'form-control')) !!}
+                    <div class="category-info">
+                        @foreach($dd_categorie_posts as $key=>$item)
+                            <label class="check-container">
+                                {{$item->name}}
+                                {{ Form::checkbox('list_category[]', $item->id, false, array('class' => '')) }}
+                                <span class="check-mark"></span>
+                            </label>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="form-group">
                     <strong>Mô Tả Ngắn:</strong>

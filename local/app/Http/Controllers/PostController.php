@@ -40,7 +40,8 @@ class PostController extends Controller
         }
         $newArray = [];
         self::showCategoryItemDropDown($dd_categorie_posts, 0, $newArray);
-        $dd_categorie_posts = array_pluck($newArray, 'name', 'id');
+        $dd_categorie_posts=$newArray;
+//        $dd_categorie_posts = array_pluck($newArray, 'name', 'id');
         return view('backend.admin.post.create', compact('roles', 'dd_categorie_posts'));
     }
 
@@ -52,12 +53,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         $post = new Post();
         $seo=new Seo();
         $title = $request->input('title');
         $description = $request->input('description');
         $content = $request->input('content');
+        $listCategory=$request->input('list_category');
         $seoTitle = $request->input('seo_title');
         $seoDescription = $request->input('seo_description');
         $seoKeywords=$request->input('seo_keywords');
@@ -88,6 +89,7 @@ class PostController extends Controller
         $post->user_id = Auth::user()->id;
         $post->seo_id=$seo->id;
         $post->save();
+        $post->categoryitems()->attach($listCategory);
         return redirect()->route('post.index')->with('success', 'Tạo Mới Thành Công Bài Viết');
     }
 
@@ -123,10 +125,11 @@ class PostController extends Controller
         }
         $newArray = [];
         self::showCategoryItemDropDown($dd_categorie_posts, 0, $newArray);
-        $dd_categorie_posts = array_pluck($newArray, 'name', 'id');
-        $dd_categorie_posts = array_map(function ($index, $value) {
-            return ['index' => $index, 'value' => $value];
-        }, array_keys($dd_categorie_posts), $dd_categorie_posts);
+        $dd_categorie_posts=$newArray;
+//        $dd_categorie_posts = array_pluck($newArray, 'name', 'id');
+//        $dd_categorie_posts = array_map(function ($index, $value) {
+//            return ['index' => $index, 'value' => $value];
+//        }, array_keys($dd_categorie_posts), $dd_categorie_posts);
         return view('backend.admin.post.edit', compact('post', 'dd_categorie_posts'));
     }
 
@@ -143,6 +146,7 @@ class PostController extends Controller
         $title = $request->input('title');
         $description = $request->input('description');
         $content = $request->input('content');
+        $listCategory=$request->input('list_category');
         $seoTitle = $request->input('seo_title');
         $seoDescription = $request->input('seo_description');
         $seoKeywords=$request->input('seo_keywords');
@@ -175,6 +179,7 @@ class PostController extends Controller
         $post->post_type = IS_POST;
         $post->user_id = Auth::user()->id;
         $post->save();
+        $post->categoryitems()->sync($listCategory);
         return redirect()->route('post.index')->with('success', 'Cập Nhật Thành Công Bài Viết');
     }
 
@@ -188,6 +193,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->seos->delete();
+        $post->categoryitems()->detach();
         $post->delete();
         return redirect()->route('post.index')
             ->with('success', 'Đã Xóa Thành Công');
