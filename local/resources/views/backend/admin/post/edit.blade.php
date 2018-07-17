@@ -36,19 +36,6 @@
 
                 <strong>Tên Bài Viết:</strong>
                 {!! Form::text('title',null, array('placeholder' => 'Tên','class' => 'form-control')) !!}
-
-                {{--<div class="form-group">--}}
-                {{--<strong>Chuyên Mục</strong>--}}
-                {{--<select class="form-control" name="parent">'--}}
-                {{--@foreach($dd_categorie_posts as $key=>$data) {--}}
-                {{--@if($data['index']==$post->category_item_id)--}}
-                {{--<option value="{{$data['index']}}" selected>{{$data['value']}}</option>--}}
-                {{--@else--}}
-                {{--<option value="{{$data['index']}}">{{$data['value']}}</option>--}}
-                {{--@endif--}}
-                {{--@endforeach--}}
-                {{--</select>--}}
-                {{--</div>--}}
                 <div class="form-group">
                     <strong>Chuyên Mục</strong>
                     <div class="category-info">
