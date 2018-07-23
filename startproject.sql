@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 17, 2018 lúc 06:22 AM
+-- Thời gian đã tạo: Th7 23, 2018 lúc 04:31 AM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.0.29
 
@@ -75,6 +75,7 @@ CREATE TABLE `category_many` (
 
 INSERT INTO `category_many` (`category_id`, `item_id`, `created_at`, `updated_at`) VALUES
 (1, 1, '2018-07-17 03:18:34', '2018-07-17 03:18:34'),
+(2, 1, '2018-07-17 04:25:46', '2018-07-17 04:25:46'),
 (5, 1, '2018-07-17 04:08:02', '2018-07-17 04:08:02');
 
 -- --------------------------------------------------------
