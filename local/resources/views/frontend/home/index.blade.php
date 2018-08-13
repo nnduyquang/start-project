@@ -5,6 +5,15 @@
 @section('description')
     Nội Thất
 @stop
+@section('keyword')
+
+@stop
+@section('url-og')
+
+@stop
+@section('image-og')
+
+@stop
 @section('styles')
     {{ Html::style('css/themes/default/default.css') }}
 @stop

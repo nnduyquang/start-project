@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th8 10, 2018 lúc 12:31 PM
+-- Thời gian đã tạo: Th8 13, 2018 lúc 12:22 PM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.0.29
 
@@ -138,7 +138,12 @@ INSERT INTO `configs` (`id`, `name`, `content`, `description`, `order`, `user_id
 (15, 'config-address', '202B Hoàng Văn Thụ Phường 9 Quận Phú Nhuận TP.HCM', NULL, 9, 1, NULL, '2018-08-08 15:10:24'),
 (16, 'config-name', 'Phạm Anh Tuân', NULL, 4, 1, NULL, '2018-08-08 15:10:24'),
 (18, 'config-introduce', '<p>\r\n	Công ty Bất động sản Tuấn 123 tiền thân là Công ty TNHH Tuấn 123 với 5 năm kinh nghiệm trong lĩnh vực Bất động sản Thổ cư tại Việt Nam. Khởi đầu từ một Công ty Môi giới Nhà đất, Tuấn 123 lần lượt phát triển về quy mô nhân sự cũng như các lĩnh vực hoạt động. Ở tất cả các lĩnh vực: Môi giới Bất động sản, Định giá Bất động sản, Đào tạo Môi giới &hellip; công ty đều chứng tỏ sự chuyên nghiệp và chất lượng dịch vụ của mình.\r\n</p>\r\n\r\n<p>\r\n	<em><strong>Công ty Bất động sản Tuấn 123</strong>&nbsp;</em>đã được biết đến là đơn vị Môi giới Bất động sản Thổ cư lớn nhất Hà Nội và từng bước tiến đến lớn nhất Việt Nam với dấu mốc thành lập Trụ sở Miền Nam từ đầu năm 2017.\r\n</p>\r\n\r\n<p>\r\n	Bất động sản Tuấn 123&nbsp;mong muốn cung cấp những sản phẩm và dịch vụ gắn liền với thương hiệu Tuấn 123, đảm bảo quy trình chuyên nghiệp, tư vấn nhiệt thành đáp ứng nhu cầu rất lớn của thị trường Bất động sản. Không ngừng đổi mới và phát triển để khẳng định tầm vóc của một doanh nghiệp Việt Nam năng động, sáng tạo, tiên phong trong cả lĩnh vực kinh doanh và các hoạt động cộng đồng.\r\n</p>', NULL, 5, 1, NULL, '2018-08-08 02:57:48'),
-(20, 'config-company-name', 'Công Ty BĐS Tuấn 123', NULL, 1, 1, NULL, '2018-08-08 09:28:25');
+(20, 'config-company-name', 'Công Ty BĐS Tuấn 123', NULL, 1, 1, NULL, '2018-08-08 09:28:25'),
+(21, 'config-seo-title', 'qwe', NULL, 10, 1, NULL, '2018-08-13 07:52:08'),
+(22, 'config-seo-description', 'asdas', NULL, 11, 1, NULL, '2018-08-13 07:52:08'),
+(23, 'config-seo-keywords', 'qwe,sadasd', NULL, 12, 1, NULL, '2018-08-13 07:52:08'),
+(24, 'config-seo-image', 'images/uploads/images/gt_1.jpg', NULL, 13, 1, NULL, '2018-08-13 07:52:08'),
+(25, 'config-favicon', NULL, NULL, 14, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -312,7 +317,8 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `path`, `description`, `content`, `image`, `post_type`, `isActive`, `category_item_id`, `user_id`, `created_at`, `updated_at`, `seo_id`) VALUES
-(1, 'test bài viết', 'test-bai-viet', '<p>\r\n	test bài viết\r\n</p>', '<p>\r\n	test bài viết\r\n</p>', 'images/uploads/images/gt_1.jpg', 1, 1, NULL, 1, '2018-07-17 03:18:34', '2018-07-17 03:18:34', 7);
+(1, 'test bài viết', 'test-bai-viet', '<p>\r\n	test bài viết\r\n</p>', '<p>\r\n	test bài viết\r\n</p>', 'images/uploads/images/gt_1.jpg', 1, 1, NULL, 1, '2018-07-17 03:18:34', '2018-07-17 03:18:34', 7),
+(2, 'Giới Thiệu', 'gioi-thieu', '<p>\r\n	Giới Thiệu\r\n</p>', '<p>\r\n	Giới Thiệu\r\n</p>', '0', 0, 1, NULL, 1, '2018-08-13 03:00:05', '2018-08-13 03:00:05', 8);
 
 -- --------------------------------------------------------
 
@@ -390,7 +396,8 @@ CREATE TABLE `seos` (
   `id` int(10) UNSIGNED NOT NULL,
   `seo_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `seo_description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `seo_keywords` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_keywords` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -399,14 +406,15 @@ CREATE TABLE `seos` (
 -- Đang đổ dữ liệu cho bảng `seos`
 --
 
-INSERT INTO `seos` (`id`, `seo_title`, `seo_description`, `seo_keywords`, `created_at`, `updated_at`) VALUES
-(1, 'Test 1', 'Test 1', 'Test 1', '2018-07-17 02:13:46', '2018-07-17 02:13:46'),
-(2, 'Test 2', 'Test 2', 'Test 2', '2018-07-17 02:14:03', '2018-07-17 02:14:03'),
-(3, 'Test 3', 'Test 3', 'Test 3', '2018-07-17 02:14:21', '2018-07-17 02:14:21'),
-(4, 'test1-1', 'test1-1', 'test1,1', '2018-07-17 02:24:13', '2018-07-17 02:24:13'),
-(5, 'test 5', 'test 5', 'test 5', '2018-07-17 02:32:23', '2018-07-17 02:32:23'),
-(6, 'test bài viết', 'test bài viết', 'test bài viết', '2018-07-17 03:13:47', '2018-07-17 03:13:47'),
-(7, 'test bài viết', 'test bài viết', 'test bài viết', '2018-07-17 03:18:34', '2018-07-17 03:18:34');
+INSERT INTO `seos` (`id`, `seo_title`, `seo_description`, `seo_keywords`, `seo_image`, `created_at`, `updated_at`) VALUES
+(1, 'Test 1', 'Test 1', 'Test 1', '', '2018-07-17 02:13:46', '2018-07-17 02:13:46'),
+(2, 'Test 2', 'Test 2', 'Test 2', '', '2018-07-17 02:14:03', '2018-07-17 02:14:03'),
+(3, 'Test 3', 'Test 3', 'Test 3', '', '2018-07-17 02:14:21', '2018-07-17 02:14:21'),
+(4, 'test1-1', 'test1-1', 'test1,1', '', '2018-07-17 02:24:13', '2018-07-17 02:24:13'),
+(5, 'test 5', 'test 5', 'test 5', '', '2018-07-17 02:32:23', '2018-07-17 02:32:23'),
+(6, 'test bài viết', 'test bài viết', 'test bài viết', '', '2018-07-17 03:13:47', '2018-07-17 03:13:47'),
+(7, 'test bài viết', 'test bài viết', 'test bài viết', 'images/uploads/images/gt_1.jpg', '2018-07-17 03:18:34', '2018-08-13 08:08:38'),
+(8, NULL, NULL, NULL, '', '2018-08-13 03:00:05', '2018-08-13 03:00:05');
 
 -- --------------------------------------------------------
 
@@ -559,7 +567,7 @@ ALTER TABLE `category_permissions`
 -- AUTO_INCREMENT cho bảng `configs`
 --
 ALTER TABLE `configs`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT cho bảng `menus`
@@ -583,7 +591,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT cho bảng `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `products`
@@ -601,7 +609,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT cho bảng `seos`
 --
 ALTER TABLE `seos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT cho bảng `users`

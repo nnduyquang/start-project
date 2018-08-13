@@ -99,6 +99,20 @@
                     {!! Form::textarea('seo_description',null,array('placeholder' => '','id'=>'seo-description-post','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
                 </div>
             </div>
+            <h3>Mạng Xã Hội</h3>
+            <div class="content">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <strong>Chọn hình đại diện hiển thị MXH: </strong>
+                        {!! Form::text('seo-image', null, array('class' => 'form-control','id'=>'pathImageMXH')) !!}
+                        <br>
+                        {!! Form::button('Tìm', array('id' => 'btnBrowseImageMXH','class'=>'btn btn-primary')) !!}
+                    </div>
+                    <div class="form-group">
+                        {{ Html::image('','',array('id'=>'showHinhMXH','class'=>'show-image'))}}
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-md-12 form-group">
             <strong>Kích Hoạt:</strong>

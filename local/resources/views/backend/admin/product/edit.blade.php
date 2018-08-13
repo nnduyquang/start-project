@@ -118,6 +118,28 @@
                     {!! Form::textarea('seo_description',$product->seos->seo_description,array('placeholder' => '','id'=>'seo-description-post','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
                 </div>
             </div>
+            <h3>Mạng Xã Hội</h3>
+            <div class="content">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <strong>Chọn hình đại diện hiển thị MXH: </strong>
+                        @if($post->seos->seo_image!='')
+                            {!! Form::text('seo-image', url('/').'/'.$post->seos->seo_image, array('class' => 'form-control','id'=>'pathImageMXH')) !!}
+                        @else
+                            {!! Form::text('seo-image', '', array('class' => 'form-control','id'=>'pathImageMXH')) !!}
+                        @endif
+                        <br>
+                        {!! Form::button('Tìm', array('id' => 'btnBrowseImageMXH','class'=>'btn btn-primary')) !!}
+                    </div>
+                    <div class="form-group">
+                        @if($post->seos->seo_image!='')
+                            {{ Html::image($post->seos->seo_image,'',array('id'=>'showHinhMXH','class'=>'show-image'))}}
+                        @else
+                            {{ Html::image('','',array('id'=>'showHinhMXH','class'=>'show-image'))}}
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <strong>Kích Hoạt:</strong>

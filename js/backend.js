@@ -222,6 +222,12 @@ if ($('#btnBrowseImagePost').length) {
         selectFileWithKCFinder('pathImagePost','showHinhPost');
     }
 };
+if ($('#btnBrowseImageMXH').length) {
+    var button1 = document.getElementById('btnBrowseImageMXH');
+    button1.onclick = function () {
+        selectFileWithKCFinder('pathImageMXH','showHinhMXH');
+    }
+};
 function loadDataFormWhenSelectTreeMenu(data) {
     $('input[name=state]').val('edit');
     $('form#frmCreateThuNghiem').attr('action', getBaseURL() + "sml_admin/menu-update/" + data.id);

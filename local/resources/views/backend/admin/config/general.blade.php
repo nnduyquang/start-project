@@ -92,6 +92,78 @@
             </div>
         @endif
     @endforeach
+    <div id="seo-part" class="col-md-12 p-0">
+        <h3>SEO</h3>
+        <div class="content">
+            <div class="show-pattern">
+                @foreach($cauhinhs as $key=>$cauhinh)
+                    @if($cauhinh->name=='config-seo-title')
+                        <span class="title">{{$cauhinh->content}}</span>
+                        <span class="link">{{URL::to('/')}}</span>
+                    @endif
+
+                    @if($cauhinh->name=='config-seo-description')
+                        <span class="description">{{$cauhinh->content}}</span>
+                    @endif
+                @endforeach
+            </div>
+            @foreach($cauhinhs as $key=>$cauhinh)
+                @if($cauhinh->name=='config-seo-keywords')
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Từ khóa cần SEO</strong>
+                            {!! Form::text('seo_keywords',$cauhinh->content, array('placeholder' => 'keywords cách nhau dấu phẩy','class' => 'form-control')) !!}
+                            {{ Form::hidden('hd-seo-keywords', $cauhinh->content) }}
+                            <ul class="error-notice">
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+
+                @if($cauhinh->name=='config-seo-title')
+                    <div class="col-md-12 form-group">
+                        <strong>Tiêu Đề (title):</strong>
+                        {!! Form::text('seo_title',$cauhinh->content, array('placeholder' => 'Tên','class' => 'form-control')) !!}
+                        {{ Form::hidden('hd-seo-title', $cauhinh->content) }}
+                    </div>
+                @endif
+                @if($cauhinh->name=='config-seo-description')
+                    <div class="col-md-12 form-group">
+                        <strong>Mô Tả (description):</strong>
+                        {!! Form::textarea('seo_description', $cauhinh->content,array('placeholder' => '','id'=>'seo-description-post','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
+                        {{ Form::hidden('hd-seo-description', $cauhinh->content) }}
+                    </div>
+                @endif
+            @endforeach
+        </div>
+        @foreach($cauhinhs as $key=>$cauhinh)
+            @if($cauhinh->name=='config-seo-image')
+                <h3>Mạng Xã Hội</h3>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <strong>Chọn hình đại diện hiển thị MXH: </strong>
+                            @if($cauhinh->content!='')
+                                {!! Form::text('seo-image', url('/').'/'.$cauhinh->content, array('class' => 'form-control','id'=>'pathImageMXH')) !!}
+                            @else
+                                {!! Form::text('seo-image', '', array('class' => 'form-control','id'=>'pathImageMXH')) !!}
+                            @endif
+
+                            <br>
+                            {!! Form::button('Tìm', array('id' => 'btnBrowseImageMXH','class'=>'btn btn-primary')) !!}
+                        </div>
+                        <div class="form-group">
+                            @if($cauhinh->content!='')
+                                {{ Html::image($cauhinh->content,'',array('id'=>'showHinhMXH','class'=>'show-image'))}}
+                            @else
+                                {{ Html::image('','',array('id'=>'showHinhMXH','class'=>'show-image'))}}
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button id="btnDanhMuc" type="submit" class="btn btn-primary">Lưu Cấu Hình</button>
     </div>

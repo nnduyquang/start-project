@@ -9,6 +9,13 @@
     <meta name="keywords" content="@yield('keyword')">
     <meta name="description" content="@yield('description')">
     <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="@yield('title')" />
+    {{--<meta property="og:type" content="article" />--}}
+    <meta property="og:url" content="@yield('url-og')" />
+    <meta property="og:image" content="@yield('image-og')" />
+    <meta property="og:description" content="@yield('description')" />
+    <link rel="shortcut icon" href="images/icon/favicon.ico" type="image/x-icon">
+    {{--<meta property="og:site_name" content="Site Name, i.e. Moz" />--}}
     {{ Html::style('css/core.common.css') }}
     {{ Html::style('css/core.frontend.css') }}
     {{ Html::style('css/frontend.css') }}

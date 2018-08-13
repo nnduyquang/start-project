@@ -62,11 +62,16 @@ class PostController extends Controller
         $seoTitle = $request->input('seo_title');
         $seoDescription = $request->input('seo_description');
         $seoKeywords=$request->input('seo_keywords');
+        $seoImage=$request->input('seo-image');
         $isActive = $request->input('post_is_active');
         $image = $request->input('image');
         if ($image) {
             $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
             $post->image = $image;
+        }
+        if($seoImage){
+            $seoImage = substr($seoImage, strpos($seoImage, 'images'), strlen($seoImage) - 1);
+            $seo->seo_image= $seoImage;
         }
         $categoryItemId = $request->input('parent');
         if (!IsNullOrEmptyString($isActive)) {
@@ -80,6 +85,7 @@ class PostController extends Controller
         $seo->seo_title= $seoTitle;
         $seo->seo_description= $seoDescription;
         $seo->seo_keywords= $seoKeywords;
+
         $seo->save();
         $post->title = $title;
         $post->path = chuyen_chuoi_thanh_path($title);
@@ -150,6 +156,7 @@ class PostController extends Controller
         $seoTitle = $request->input('seo_title');
         $seoDescription = $request->input('seo_description');
         $seoKeywords=$request->input('seo_keywords');
+        $seoImage=$request->input('seo-image');
         $isActive = $request->input('post_is_active');
         $image = $request->input('image');
         if ($image) {
@@ -157,6 +164,10 @@ class PostController extends Controller
             $post->image = $image;
         } else {
             $post->image = NULL;
+        }
+        if($seoImage){
+            $seoImage = substr($seoImage, strpos($seoImage, 'images'), strlen($seoImage) - 1);
+            $post->seos->seo_image= $seoImage;
         }
         $categoryItemId = $request->input('parent');
         if (!IsNullOrEmptyString($isActive)) {

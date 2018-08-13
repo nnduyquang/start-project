@@ -67,6 +67,7 @@ class ProductController extends Controller
         $seoTitle = $request->input('seo_title');
         $seoDescription = $request->input('seo_description');
         $seoKeywords = $request->input('seo_keywords');
+        $seoImage=$request->input('seo-image');
         $code = $request->input('code');
         $price = $request->input('price');
         $sale = $request->input('sale');
@@ -103,10 +104,18 @@ class ProductController extends Controller
         $seo->seo_title= $seoTitle;
         $seo->seo_description= $seoDescription;
         $seo->seo_keywords= $seoKeywords;
+        if($seoImage){
+            $seoImage = substr($seoImage, strpos($seoImage, 'images'), strlen($seoImage) - 1);
+            $seo->seo_image= $seoImage;
+        }
         $seo->save();
         $image = $request->input('image');
-        $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
-
+        if ($image) {
+            $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
+            $product->image = $image;
+        } else {
+            $product->image = NULL;
+        }
         $product->name = $name;
         $product->path = chuyen_chuoi_thanh_path($name);
         $product->image = $image;
@@ -178,6 +187,7 @@ class ProductController extends Controller
         $seoTitle = $request->input('seo_title');
         $seoDescription = $request->input('seo_description');
         $seoKeywords = $request->input('seo_keywords');
+        $seoImage=$request->input('seo-image');
         $code = $request->input('code');
         $price = $request->input('price');
         $sale = $request->input('sale');
@@ -229,9 +239,18 @@ class ProductController extends Controller
         $product->seos->seo_title = $seoTitle;
         $product->seos->seo_description = $seoDescription;
         $product->seos->seo_keywords = $seoKeywords;
+        if($seoImage){
+            $seoImage = substr($seoImage, strpos($seoImage, 'images'), strlen($seoImage) - 1);
+            $product->seos->seo_image= $seoImage;
+        }
         $product->seos->save();
         $image = $request->input('image');
-        $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
+        if ($image) {
+            $image = substr($image, strpos($image, 'images'), strlen($image) - 1);
+            $product->image = $image;
+        } else {
+            $product->image = NULL;
+        }
         $product->name = $name;
         $product->path = chuyen_chuoi_thanh_path($name);
         $product->image = $image;
@@ -239,7 +258,7 @@ class ProductController extends Controller
         $product->category_product_id = $categoryPostID;
         $product->user_id = Auth::user()->id;
         $product->save();
-        return redirect()->route('product.index')->with('success', 'Tạo Mới Thành Công Sản Phẩm');
+        return redirect()->route('product.index')->with('success', 'Cập Nhật Thành Công Sản Phẩm');
     }
 
     /**
