@@ -35,17 +35,13 @@
                     <strong>Tên Bài Viết:</strong>
                     {!! Form::text('title',null, array('placeholder' => 'Tên','class' => 'form-control')) !!}
                 </div>
-                {{--<div class="form-group">--}}
-                {{--<strong>Chuyên Mục</strong>--}}
-                {{--{!! Form::select('parent',$dd_categorie_posts, null,array('class' => 'form-control')) !!}--}}
-                {{--</div>--}}
                 <div class="form-group">
                     <strong>Chuyên Mục</strong>
                     <div class="category-info">
-                        @foreach($dd_categorie_posts as $key=>$item)
+                        @foreach($data['dd_categorie_posts'] as $key=>$item)
                             <label class="check-container">
                                 {{$item->name}}
-                                {{ Form::checkbox('list_category[]', $item->id, false, array('class' => '')) }}
+                                {{ Form::checkbox('list_category_id[]', $item->id, false, array('class' => '')) }}
                                 <span class="check-mark"></span>
                             </label>
                         @endforeach
@@ -116,7 +112,7 @@
         </div>
         <div class="col-md-12 form-group">
             <strong>Kích Hoạt:</strong>
-            <input name="post_is_active" data-on="Có" data-off="Không" type="checkbox" data-toggle="toggle">
+            <input name="isActive" data-on="Có" data-off="Không" type="checkbox" data-toggle="toggle">
         </div>
         <div class="col-md-12" style="text-align:  center;">
             <button id="btnDanhMuc" type="submit" class="btn btn-primary">Tạo Mới Bài Viết</button>
