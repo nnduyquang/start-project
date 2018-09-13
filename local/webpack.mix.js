@@ -31,6 +31,8 @@ mix
         'bower_components/admin-lte/dist/js/adminlte.min.js',
         'bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js',
         'bower_components/gijgo/dist/combined/js/gijgo.min.js',
+        'bower_components/jquery-nestable/jquery.nestable.js',
+
 
     ], '../js/core.backend.js')
 

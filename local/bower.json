@@ -28,6 +28,7 @@
     "waypoints": "^4.0.1",
     "countUp.js": "^1.9.3",
     "wow": "^1.1.2",
-    "animate.css": "^3.7.0"
+    "animate.css": "^3.7.0",
+    "jquery-nestable": "*"
   }
 }

@@ -28,6 +28,9 @@
         <li class="nav-item"><a class="nav-link {{ set_active('sml_admin/san-pham') }}" href="{{ route('product.index') }}"><i class="fa fa-link"></i>
                 <p>Sản Phẩm</p></a>
         </li>
+        <li class="nav-item"><a class="nav-link {{ set_active('sml_admin/menu') }}" href="{{ route('menu.index') }}"><i class="fa fa-link"></i>
+                <p>Menu Builder</p></a>
+        </li>
         <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
                 <i class="fa fa-link"></i>

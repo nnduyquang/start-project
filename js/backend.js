@@ -228,151 +228,117 @@ if ($('#btnBrowseImageMXH').length) {
         selectFileWithKCFinder('pathImageMXH','showHinhMXH');
     }
 };
-function loadDataFormWhenSelectTreeMenu(data) {
-    $('input[name=state]').val('edit');
-    $('form#frmCreateThuNghiem').attr('action', getBaseURL() + "sml_admin/menu-update/" + data.id);
-    $('input[name=_method]').val('PATCH');
-    $('input[name=name]').val(data.name);
-    $('input[name=parentId]').val(data['parent_id']);
-    $('input[name=mainId]').val(data.id);
-    $('input[name=level]').val(data.level);
-    $('input[name=order]').val(data.order);
-    $('button#deleteMenu').show();
-    $('.test_info_right h3.title').html('Cập Nhật Menu: ' + data.name);
-    (data.isActive === 1) ? $('input[name=menu_is_active]').prop('checked', true) : $('input[name=menu_is_active]').prop('checked', false);
-    if (data.type === 1) {
-        $('#menu_state_page_category').hide();
-        $('#menu_state_page_single').show();
-        $('input[name=state_menu_category]').prop('checked', false);
-        $('select[name=page_id]').children("option").removeAttr('selected');
-        $('select[name=page_id]').children("option[value=" + data['content_id'] + "]").attr('selected', 'selected');
-    } else {
-        $('#menu_state_page_category').show();
-        $('#menu_state_page_single').hide();
-        $('input[name=state_menu_category]').prop('checked', true);
-        $('select[name=category_id]').children("option").removeAttr('selected');
-        $('select[name=category_id]').children("option[value=" + data['content_id'] + "]").attr('selected', 'selected');
-    }
-}
-function resetForm() {
-    $('input[name=state]').val('insert');
-    $('form#frmCreateThuNghiem').attr('action', getBaseURL() + "sml_admin/menu-create");
-    $('input[name=_method]').val('POST');
-    $('input[name=name]').val('');
-    $('.test_info_right h3.title').html('Tạo Mới Menu');
-    $('input[name=parentId]').val('');
-    $('input[name=mainId]').val('');
-    $('input[name=level]').val('');
-    $('input[name=order]').val('');
-    $('#menu_state_page_category').hide();
-    $('#menu_state_page_single').show();
-    $('input[name=menu_is_active]').prop('checked', false);
-    $('input[name=state_menu_category]').prop('checked', false);
-    $('select[name=page_id]').children("option").removeAttr('selected');
-    $('select[name=page_id]').children("option[value=0]").attr('selected', 'selected');
-    $('select[name=category_id]').children("option").removeAttr('selected');
-    $('select[name=category_id]').children("option").first().attr('selected', 'selected');
-}
-function loadTreeMenu() {
-    $.ajax({
-        type: "GET",
-        url: getBaseURL() + "sml_admin/load-tree",
-        dataType: 'json',
-        success: function (data) {
-            var runTree = $('#tree').tree({
-                uiLibrary: 'bootstrap4',
-                dataSource: data,
-                primaryKey: 'id',
-                dragAndDrop: true
-                // imageUrlField: 'flagUrl'
-            });
-            runTree.bind('select', {key: data}, function (e, node, id) {
-                $.ajax({
-                    type: "GET",
-                    url: getBaseURL() + "sml_admin/find/" + id,
-                    dataType: 'json',
-                    success: function (data2) {
-                        loadDataFormWhenSelectTreeMenu(data2)
-                    }
-                });
-            });
-            runTree.on('nodeDrop', function (e, id, parentId, orderNumber) {
-                console.log(orderNumber);
-                if (parentId == null)
-                    parentId = 0;
-                $.ajax({
-                    type: "GET",
-                    url: getBaseURL() + "sml_admin/updateNodeFamily/" + id + "/" + parentId,
-                    dataType: 'json',
-                    success: function (data2) {
-                        // loadDataFormWhenSelectTreeMenu(data2)
-                    }
-                });
-            });
-        },
-        error: function (data) {
-            // alert(data);
+$(document).ready(function()
+{
+
+    $('#nestable').nestable({
+        group: 1
+    });
+    var $m_modal       = $('#menu_item_modal'),
+        $m_hd_add      = $('#m_hd_add').hide().removeClass('hidden'),
+        $m_hd_edit     = $('#m_hd_edit').hide().removeClass('hidden'),
+        $m_form        = $('#m_form'),
+        $m_form_method = $('#m_form_method'),
+        $m_title       = $('#m_title'),
+        $m_title_i18n  = $('#title_i18n'),
+        $m_url_type    = $('#m_url_type'),
+        $m_url         = $('#m_url'),
+        $m_link_type   = $('#m_link_type'),
+        $m_route_type  = $('#m_route_type'),
+        $m_route       = $('#m_route'),
+        $m_parameters  = $('#m_parameters'),
+        $m_icon_class  = $('#m_icon_class'),
+        $m_color       = $('#m_color'),
+        $m_target      = $('#m_target'),
+        $m_id          = $('#m_id');
+    $('.item_actions').on('click', '.delete', function (e) {
+        id = $(e.currentTarget).data('id');
+        $('#delete_form')[0].action = $('#delete_form')[0].action.replace("__id",id);
+        $('#delete_modal').modal('show');
+    });
+    $('.add_item').click(function() {
+        $m_form.trigger('reset');
+        $m_modal.modal('show', {data: null});
+    });
+    $m_modal.on('show.bs.modal', function(e, data) {
+        var _adding      = e.relatedTarget.data ? false : true,
+            translatable = $m_modal.data('multilingual'),
+            $_str_i18n   = '';
+
+        if (_adding) {
+            $m_form.attr('action', $m_form.data('action-add'));
+            $m_form_method.val('POST');
+            $m_hd_add.show();
+            $m_hd_edit.hide();
+            $m_target.val('_self').change();
+            $m_link_type.val('url').change();
+            $m_url.val('');
+            $m_icon_class.val('');
+
+        } else {
+            $m_form.attr('action', $m_form.data('action-update'));
+            $m_form_method.val('PUT');
+            $m_hd_add.hide();
+            $m_hd_edit.show();
+
+            var _src = e.relatedTarget.data, // the source
+                id   = _src.data('id');
+
+            $m_title.val(_src.data('title'));
+            $m_url.val(_src.data('url'));
+            $m_route.val(_src.data('route'));
+            $m_parameters.val(JSON.stringify(_src.data('parameters')));
+            $m_icon_class.val(_src.data('icon_class'));
+            $m_color.val(_src.data('color'));
+            $m_id.val(id);
+
+            // if(translatable){
+            //     $_str_i18n = $("#title" + id + "_i18n").val();
+            // }
+
+            if (_src.data('target') == '_self') {
+                $m_target.val('_self').change();
+            } else if (_src.data('target') == '_blank') {
+                $m_target.find("option[value='_self']").removeAttr('selected');
+                $m_target.find("option[value='_blank']").attr('selected', 'selected');
+                $m_target.val('_blank');
+            }
+            if (_src.data('route') != "") {
+                $m_link_type.val('route').change();
+                $m_url_type.hide();
+            } else {
+                $m_link_type.val('url').change();
+                $m_route_type.hide();
+            }
+            if ($m_link_type.val() == 'route') {
+                $m_url_type.hide();
+                $m_route_type.show();
+            } else {
+                $m_route_type.hide();
+                $m_url_type.show();
+            }
+        }
+
+        if (translatable) {
+            $m_title_i18n.val($_str_i18n);
+            translatable.refresh();
         }
     });
-}
-loadTreeMenu();
-if ($('#select_state_menu_category').is(':checked')) {
-    $('#menu_state_page_category').show();
-    $('#menu_state_page_single').hide();
-}
-else {
-    $('#menu_state_page_category').hide();
-    $('#menu_state_page_single').show();
-}
-$('#select_state_menu_category').change(function () {
-    if ($('#select_state_menu_category').is(':checked')) {
-        $('#menu_state_page_category').show();
-        $('#menu_state_page_single').hide();
-    }
-    else {
-        $('#menu_state_page_category').hide();
-        $('#menu_state_page_single').show();
-    }
-});
 
-
-$('#test_info_state_menu').change(function () {
-    switch ($(this).val()) {
-        case '1':
-            $('#menu_state_page').show();
-            break;
-        case '2':
-            $('#menu_state_page').hide();
-            break;
-    }
-});
-$('#sumbitFormThuNghiem').click(function () {
-    $('#frmCreateThuNghiem').submit();
-});
-$('button#addMoreMenu').click(function () {
-    $('button#deleteMenu').hide();
-    resetForm();
-});
-$('button#addSubMenu').click(function () {
-    $('button#deleteMenu').hide();
-    var id = $('input[name=mainId]').val();
-    var name = $('input[name=name]').val();
-    var level = $('input[name=level]').val();
-    resetForm();
-    $('.test_info_right h3.title').html('Thêm Menu Con Cho: ' + name)
-    $('input[name=parentId]').val(id);
-    $('input[name=level]').val(level);
+    $('.item_actions').on('click', '.edit', function (e) {
+        $m_modal.modal('show', {data: $(e.currentTarget)});
+    });
+    $m_link_type.on('change', function (e) {
+        if ($m_link_type.val() == 'route') {
+            $m_url_type.hide();
+            $m_route_type.show();
+        } else {
+            $m_url_type.show();
+            $m_route_type.hide();
+        }
+    });
 
 });
-
-$('button#deleteMenu').click(function () {
-    var id = $('input[name=mainId]').val();
-    $('form#frmCreateThuNghiem').attr('action', getBaseURL() + "sml_admin/menu-delete/" + id);
-    $('input[name=_method]').val('Delete');
-    $('#frmCreateThuNghiem').submit();
-});
-
-
 integratedCKEDITOR('description-content',height=200);
 integratedCKEDITOR('description-signatures',height=200);
 if ($('#btnBrowseImageMobile').length) {

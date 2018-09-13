@@ -103,7 +103,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
+
                 @yield('container')
                     {{--<div class="col-lg-6">--}}
                         {{--<div class="card">--}}

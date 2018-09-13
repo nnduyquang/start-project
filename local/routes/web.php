@@ -83,5 +83,24 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('sml_admin/config/email', ['as' => 'config.email.index', 'uses' => 'ConfigEmailController@getEmailConfig']);
     Route::post('sml_admin/config/email', ['as' => 'config.email.store', 'uses' => 'ConfigEmailController@saveEmailConfig']);
 
+    //MENU
+    Route::get('sml_admin/menu', ['as' => 'menu.index', 'uses' => 'MenuController@index']);
+    Route::delete('sml_admin/menu/{id}', ['as' => 'menu.delete', 'uses' => 'MenuController@deleteItem']);
+//    Route::group([
+//        'as'     => 'menu.',
+//        'prefix' => 'sml_admin/menu/{menu}',
+//    ], function ()  {
+//        Route::get('builder', ['uses' =>'MenuController@builder',    'as' => 'builder']);
+//        Route::post('order', ['uses' =>'MenuController@order_item', 'as' => 'order']);
+//
+//        Route::group([
+//            'as'     => 'item.',
+//            'prefix' => 'item',
+//        ], function () {
+//            Route::delete('{id}', ['uses' => 'MenuController@delete_menu', 'as' => 'destroy']);
+//            Route::post('/', ['uses' => 'MenuController@add_item',    'as' => 'add']);
+//            Route::put('/', ['uses' =>'MenuController@update_item', 'as' => 'update']);
+//        });
+//    });
 
 });

@@ -4,5 +4,7 @@
 @section('scripts')
 @stop
 @section('container')
-  @include('backend.admin.menu.menu_info')
+
+    @include('backend.admin.menu.index2')
 @stop
+
