@@ -138,7 +138,7 @@
             </div>
             <div class="col-md-12 form-group">
                 <strong>Kích Hoạt:</strong>
-                <input {{$post->isActive==1?'checked':''}}  name="post_is_active" data-on="Có"
+                <input {{$post->isActive==1?'checked':''}}  name="isActive" data-on="Có"
                        data-off="Không"
                        type="checkbox" data-toggle="toggle">
             </div>
