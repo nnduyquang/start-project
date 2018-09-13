@@ -19,13 +19,17 @@ class PostRepository extends EloquentRepository implements PostRepositoryInterfa
     {
         return $this->_model::where('post_type', '=', IS_POST)->orderBy('id', 'DESC')->get();
     }
-    
+
     public function showCreatePost()
     {
         $data=[];
         $category=new CategoryItem();
+        $product=new Product();
         $dd_categorie_posts = $category->getArrayCategory('create');
         $data['dd_categorie_posts']=$dd_categorie_posts;
+        $products=$product->getAllProductActiveOrderById();
+        $data['products']=$products;
+
         return $data;
     }
 
@@ -54,6 +58,7 @@ class PostRepository extends EloquentRepository implements PostRepositoryInterfa
         $request->request->add(['path' => '']);
         $request->request->add(['user_id' => Auth::user()->id]);
         $post = $this->create($request->all());
+        $post->categoryitems()->attach($request->input('list_category_id'));
         return true;
     }
 
@@ -63,6 +68,7 @@ class PostRepository extends EloquentRepository implements PostRepositoryInterfa
             $request->request->add(['isActive' => null]);
         $request->request->add(['path' => '']);
         $post=$this->update($id,$request->all());
+        $post->categoryitems()->sync($request->input('list_category_id'));
         $post->seos->update($request->all());
         return true;
     }
