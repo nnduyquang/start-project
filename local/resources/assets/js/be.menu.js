@@ -120,10 +120,12 @@ $(document).ready(function()
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        var data = new FormData($(this).get(0));
+        data.append('data',JSON.stringify($('#nestable').nestable('serialize')));
         $.ajax({
             type: "POST",
             url: getBaseURL()+"sml_admin/menu/order-menu",
-            data: JSON.stringify($('#nestable').nestable('serialize')),
+            data: data,
             dataType: 'json',
             processData: false,
             contentType: false

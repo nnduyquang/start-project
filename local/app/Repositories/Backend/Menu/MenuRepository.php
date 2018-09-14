@@ -29,16 +29,37 @@ class MenuRepository extends EloquentRepository implements MenuRepositoryInterfa
         return redirect()->route('menu.index')->with('success', 'Cập Nhật Thành Công Bài Viết');
     }
 
-    public function orderMenu()
+    public function orderMenu($request)
     {
-
+        $menuItemOrder = json_decode($request->data);
+        $this->orderItem($menuItemOrder, null);
     }
 
+    public function orderItem(array $menuItems, $parentId)
+    {
+        foreach ($menuItems as $index => $menuItem) {
 
+            $item = $this->find($menuItem->id);
+            $item->order = $index + 1;
+            $item->parent_id = $parentId;
+            $item->save();
+
+            if (isset($menuItem->children)) {
+
+                self::orderItem($menuItem->children, $item->id);
+            }
+        }
+    }
+    
     public function getAllMenuItem()
     {
-        return $this->getAll();
+        $newArray = array();
+        $menu=$this->_model->getAllOrderBy('order');
+        foreach ($menu as $key=>$item){
+            if(!isset($item->parent_id)){
+                array_push($newArray, $item);
+            }
+        }
+        return $newArray;
     }
-
-
 }

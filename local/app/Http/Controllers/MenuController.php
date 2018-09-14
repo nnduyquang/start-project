@@ -26,8 +26,8 @@ class MenuController extends Controller
         return redirect()->route('menu.index');
     }
 
-    public function orderMenu(){
-        $menu = $this->menuRepository->orderMenu();
+    public function orderMenu(Request $request){
+        $menu = $this->menuRepository->orderMenu($request);
         return redirect()->route('menu.index');
     }
 

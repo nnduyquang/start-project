@@ -89,4 +89,8 @@ class Menu extends Model
 
         return $order;
     }
+
+    public function getAllOrderBy($order){
+        return $this->orderBy($order)->get();
+    }
 }
