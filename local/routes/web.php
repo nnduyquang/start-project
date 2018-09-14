@@ -85,6 +85,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     //MENU
     Route::get('sml_admin/menu', ['as' => 'menu.index', 'uses' => 'MenuController@index']);
+    Route::post('sml_admin/menu/create', ['as' => 'menu.store', 'uses' => 'MenuController@store']);
+    Route::post('sml_admin/menu/order-menu', ['as' => 'menu.order', 'uses' => 'MenuController@orderMenu']);
+    Route::put('sml_admin/menu/edit', ['as' => 'menu.update', 'uses' => 'MenuController@update']);
     Route::delete('sml_admin/menu/{id}', ['as' => 'menu.delete', 'uses' => 'MenuController@deleteItem']);
 //    Route::group([
 //        'as'     => 'menu.',

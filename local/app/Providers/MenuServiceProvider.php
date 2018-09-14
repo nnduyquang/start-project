@@ -13,10 +13,10 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer(
-            '*',
-            'App\Http\ViewComposers\MenuComposer'
-        );
+//        view()->composer(
+//            '*',
+//            'App\Http\ViewComposers\MenuComposer'
+//        );
     }
 
     /**
@@ -26,6 +26,9 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(
+            \App\Repositories\Backend\Menu\MenuRepositoryInterface::class,
+            \App\Repositories\Backend\Menu\MenuRepository::class
+        );
     }
 }

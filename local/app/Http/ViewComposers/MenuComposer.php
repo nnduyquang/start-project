@@ -16,7 +16,7 @@ class MenuComposer
      */
     public function __construct(MenuRepository $menu)
     {
-       $this->listMenu = $menu->getAllMenuTree();
+//       $this->listMenu = $menu->getAllMenuTree();
     }
 
     /**
@@ -27,6 +27,6 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-        $view->with('listMenu', $this->listMenu);
+//        $view->with('listMenu', $this->listMenu);
     }
 }

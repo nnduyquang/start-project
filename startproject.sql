@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 13, 2018 lúc 11:36 AM
+-- Thời gian đã tạo: Th9 14, 2018 lúc 12:32 PM
 -- Phiên bản máy phục vụ: 10.1.31-MariaDB
 -- Phiên bản PHP: 7.0.29
 
@@ -147,6 +147,15 @@ CREATE TABLE `menus` (
   `route` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parameters` text COLLATE utf8mb4_unicode_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `menus`
+--
+
+INSERT INTO `menus` (`id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
+(1, 'quang test 2 as', '', '_self', NULL, '#000000', NULL, 1, '2018-09-14 04:10:33', '2018-09-14 08:38:13', 'menu.index', NULL),
+(2, 'Thư Test', '', '_self', NULL, '#000000', NULL, 2, '2018-09-14 04:48:02', '2018-09-14 08:25:26', 'menu.index', NULL),
+(3, 'Chip Test', '', '_self', NULL, '#000000', NULL, 3, '2018-09-14 04:49:28', '2018-09-14 08:25:47', 'menu.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -557,7 +566,7 @@ ALTER TABLE `configs`
 -- AUTO_INCREMENT cho bảng `menus`
 --
 ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `migrations`

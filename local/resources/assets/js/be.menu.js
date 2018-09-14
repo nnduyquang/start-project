@@ -108,4 +108,39 @@ $(document).ready(function()
         }
     });
 
+    $('#nestable').on('change', function (e) {
+        // $.post('{{ route("menus.order",["menu" => $menu->id]) }}', {
+        //     order: JSON.stringify($('#nestable').nestable('serialize')),
+        //     _token: '{{ csrf_token() }}'
+        // }, function (data) {
+        //     toastr.success("{{ __('voyager::menu_builder.updated_order') }}");
+        // });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: getBaseURL()+"sml_admin/menu/order-menu",
+            data: JSON.stringify($('#nestable').nestable('serialize')),
+            dataType: 'json',
+            processData: false,
+            contentType: false
+            // success: function(msg) {
+            //     var msg = $.parseJSON(msg);
+            //     if(msg.success=='yes')
+            //     {
+            //         return true;
+            //     }
+            //     else
+            //     {
+            //         alert('Server error');
+            //         return false;
+            //     }
+            // }
+        });
+    });
+
+
 });

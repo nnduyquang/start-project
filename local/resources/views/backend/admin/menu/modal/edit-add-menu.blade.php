@@ -6,10 +6,10 @@
                 <h4 id="m_hd_add" class="modal-title" style="display: none;"><i class="voyager-plus"></i> Create a New Menu Item</h4>
                 <h4 id="m_hd_edit" class="modal-title" style=""><i class="voyager-edit"></i> Edit Menu Item</h4>
             </div>
-            <form action="http://localhost:8080/voyager/public/admin/menus/1/item" id="m_form" method="POST" data-action-add="http://localhost:8080/voyager/public/admin/menus/1/item" data-action-update="http://localhost:8080/voyager/public/admin/menus/1/item">
-
+            <form action="" id="m_form" method="POST" data-action-add="{{route('menu.store')}}" data-action-update="{{route('menu.update',['id'=>1])}}">
+                {{csrf_field()}}
                 <input id="m_form_method" type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="_token" value="Tkf2J5uOuBbHjvgmjmF2GQrlOlzih8ckfGWs1jid">
+                {{--<input type="hidden" name="_token" value="{{csrf_field()}}">--}}
                 <div class="modal-body">
                     <label for="name">Title of the Menu Item</label>
                     <input type="text" class="form-control" id="m_title" name="title" placeholder="Title"><br>
