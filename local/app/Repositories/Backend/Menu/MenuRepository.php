@@ -29,6 +29,21 @@ class MenuRepository extends EloquentRepository implements MenuRepositoryInterfa
         return redirect()->route('menu.index')->with('success', 'Cập Nhật Thành Công Bài Viết');
     }
 
+    public function deleteMenuItem($id)
+    {
+        $menuItem = $this->find($id);
+        $children=$menuItem->children;
+        if(!$children->isEmpty()){
+            foreach ($children as $key=>$item){
+                self::deleteMenuItem($item->id);
+            }
+        }else{
+            $menuItem->delete($id);
+        }
+        $menuItem->delete($id);
+    }
+
+
     public function orderMenu($request)
     {
         $menuItemOrder = json_decode($request->data);

@@ -8,7 +8,10 @@ interface MenuRepositoryInterface
 
     public function updateMenuItem($request);
 
+    public function deleteMenuItem($id);
+
     public function orderMenu($request);
+
     public function orderItem(array $menuItems, $parentId);
 
     public function getAllMenuItem();

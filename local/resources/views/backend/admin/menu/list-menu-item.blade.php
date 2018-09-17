@@ -2,7 +2,7 @@
     @foreach($menus as $key=>$item)
         <li class="dd-item" data-id="{{ $item->id }}">
             <div class="float-right item_actions">
-                <div class="btn btn-sm btn-danger float-right delete" data-id="1">
+                <div class="btn btn-sm btn-danger float-right delete" data-id="{{ $item->id }}">
                     <i class="voyager-trash"></i> Delete
                 </div>
                 <div class="btn btn-sm btn-primary float-right edit"

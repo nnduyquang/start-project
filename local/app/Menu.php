@@ -63,6 +63,9 @@ class Menu extends Model
                 }
                 break;
             default:
+                if(is_null($parameters['url'])){
+                    $parameters['url']='';
+                }
                 $parameters['route'] = null;
                 $parameters['parameters'] = '';
                 break;

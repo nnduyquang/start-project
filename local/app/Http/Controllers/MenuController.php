@@ -37,4 +37,9 @@ class MenuController extends Controller
         return redirect()->route('menu.index');
     }
 
+    public function delete($id){
+        $menu = $this->menuRepository->deleteMenuItem($id);
+        return redirect()->route('menu.index');
+    }
+
 }

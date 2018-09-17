@@ -10,7 +10,7 @@
                 </h4>
             </div>
             <div class="modal-footer">
-                {!! Form::open(array('route' => ['menu.delete',1],'method'=>'DELETE','id'=>'delete_form')) !!}
+                {!! Form::open(array('route' => ['menu.delete','__id'],'method'=>'DELETE','id'=>'delete_form')) !!}
                     {{--{{ method_field("DELETE") }}--}}
                     {{--{{ csrf_field() }}--}}
                     <input type="submit" class="btn btn-danger float-right delete-confirm" value="Yes, Delete This Menu Item">
