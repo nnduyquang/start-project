@@ -22,6 +22,8 @@
 .wrap-index {
   box-shadow: 0 0 35px rgba(0, 0, 0, .1);
   background-color: white;
+  overflow: scroll;
+  overflow-y: hidden;
   form#formSearchPost {
     padding: 30px 0;
     button#btnSearchPost {

@@ -109,4 +109,14 @@ class CategoryItem extends Model
         } else
             $this->attributes['image'] = null;
     }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($categoryItem) { // before delete() method call this
+            if (!is_null($categoryItem->seo_id))
+                $categoryItem->seos->delete();
+        });
+
+    }
 }

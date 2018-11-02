@@ -21,40 +21,9 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
     public function showCreateProduct()
     {
         $data = [];
-        $location = new Location();
         $categoryItem = new CategoryItem();
-        $direction = new Direction();
-        $unit = new Unit();
         $categoryProduct = $categoryItem->getAllParent('order', CATEGORY_PRODUCT);
-        $cities = $location->getAllCities();
-        $directions = $direction->getAllDirection();
-        $units = $unit->getAllUnit();
-        $data['cities'] = $cities;
         $data['categoryProduct'] = $categoryProduct;
-        $data['directions'] = $directions;
-        $data['units'] = $units;
-        return $data;
-    }
-
-    public function getAllDistrictsByCity($request)
-    {
-        $data = [];
-        $id = $request['id'];
-        $location = new Location();
-        $wards = $location->getAllChildById($id);
-        $data['success'] = 'success';
-        $data['districts'] = $wards;
-        return $data;
-    }
-
-    public function getAllWardsByDistrict($request)
-    {
-        $data = [];
-        $id = $request['id'];
-        $location = new Location();
-        $wards = $location->getAllChildById($id);
-        $data['success'] = 'success';
-        $data['wards'] = $wards;
         return $data;
     }
 
@@ -81,47 +50,9 @@ class ProductRepository extends EloquentRepository implements ProductRepositoryI
     public function showEditProduct($id)
     {
         $data['product'] = $this->find($id);
-        $data['districts']=null;
-        $data['district_id']=null;
-        $data['wards']=null;
-        $data['ward_id']=null;
-        $location = new Location();
-        $direction = new Direction();
         $categoryItem = new CategoryItem();
-        $directions = $direction->getAllDirection();
-        $data['directions'] = $directions;
-        $unit = new Unit();
-        $units = $unit->getAllUnit();
-        $data['units'] = $units;
         $categoryProduct = $categoryItem->getAllParent('order', CATEGORY_PRODUCT);
         $data['categoryProduct'] = $categoryProduct;
-        $level = $location->findLevelById($data['product']->location_id);
-        switch ($level) {
-            case 0:
-                $data['cities']=$location->getAllCities();
-                $data['city_id']=$data['product']->location_id;
-                $data['districts']=$location->getAllChildById($data['product']->location_id);
-                break;
-            case 1:
-                $parentIdDistrict=$location->findParentById($data['product']->location_id);
-                $data['districts']=$location->getAllChildById($parentIdDistrict);
-                $data['district_id']=$data['product']->location_id;
-                $data['cities']=$location->getAllCities();
-                $data['city_id']=$parentIdDistrict;
-                $data['wards'] = $location->getAllChildById($data['product']->location_id);
-                break;
-            case 2:
-                $parentIdWard = $location->findParentById($data['product']->location_id);
-                $data['wards'] = $location->getAllChildById($parentIdWard);
-                $data['ward_id']=$data['product']->location_id;
-                $parentIdDistrict=$location->findParentById($data['ward_id']);
-                $data['district_id']=$parentIdDistrict;
-                $parentIDCity=$location->findParentById($parentIdDistrict);
-                $data['districts']=$location->getAllChildById($parentIDCity);
-                $data['cities']=$location->getAllCities();
-                $data['city_id']=$parentIDCity;
-                break;
-        }
         return $data;
     }
 

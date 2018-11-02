@@ -76,81 +76,49 @@
                     </div>
                 </div>
                 <div class="wrap-create-edit">
-                    <strong class="text-title-right">Địa Điểm</strong>
-                    <div class="form-group">
-                        <select name="select-city" class="form-control">
-                            <option value="-1">Chọn Tỉnh/Thành Phố</option>
-                            @foreach($cities as $key=>$item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select name="select-district" class="form-control">
-                            <option value="-1" selected>Chọn Quận/Huyện</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select name="select-ward" class="form-control">
-                            <option value="-1" selected>Chọn Phường/Xã</option>
-                        </select>
-                    </div>
-
-                </div>
-                <div class="wrap-create-edit">
-                    <strong class="text-title-right">Hướng</strong>
-                    <div class="form-group">
-                        <select name="direction_id" class="form-control">
-                            <option value="-1">Chọn Hướng</option>
-                            @foreach($directions as $key=>$item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="wrap-create-edit">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <strong>Giá: </strong>
-                                {!! Form::text('price',null, array('placeholder' => 'Tên','class' => 'form-control')) !!}
+                                <strong>Giá Gốc: </strong>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        {!! Form::text('price',null, array('placeholder' => 'Giá Gốc','class' => 'form-control')) !!}
+                                    </div>
+                                    <div class="col-md-3" style="align-self: center;">VNĐ</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <strong>ĐVT: </strong>
-                                <select name="select-unit" class="form-control">
-                                    <option value="-1">Chọn Đơn Vị Tính</option>
-                                    @foreach($units as $key=>$item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <strong>Diện Tích(m2): </strong>
-                                {!! Form::text('area',null, array('placeholder' => 'Tên','class' => 'form-control')) !!}
+                                <strong>% Giảm Giá </strong>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        {!! Form::text('sale',null, array('placeholder' => '% Giảm Giá','class' => 'form-control')) !!}
+                                    </div>
+                                    <div class="col-md-3" style="align-self: center;">%</div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <strong>Số Phòng </strong>
-                                {!! Form::text('num_bed',null, array('placeholder' => 'Số Phòng','class' => 'form-control')) !!}
+                                <strong>Giá Đã Giảm </strong>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        {!! Form::text('final_price',null, array('placeholder' => 'Giá Đã Giảm','class' => 'form-control')) !!}
+                                    </div>
+                                    <div class="col-md-3" style="align-self: center;">VNĐ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label><input name="is_in_stock" type="checkbox"> Còn Trong Kho?</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-12 p-0">
-            <div class="wrap-create-edit">
-                <strong class="text-title-left">Bản Đồ</strong>
-                {!! Form::textarea('map',null,array('placeholder' => '','id'=>'','class' => 'form-control','rows'=>'10','style'=>'resize:none')) !!}
-            </div>
-            <div class="show-map">
-
             </div>
         </div>
         <div class="wrap-create-edit">

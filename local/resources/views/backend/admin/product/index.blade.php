@@ -81,7 +81,9 @@
                     <th>Tên Sản Phẩm</th>
                     <th>Hình</th>
                     <th>Giá</th>
-                    <th>Diện Tích</th>
+                    <th>% Giảm Giá</th>
+                    <th>% Giá Đã Giảm</th>
+                    <th>Còn Hàng?</th>
                     <th>Loại Sản Phẩm</th>
                     <th>Người Đăng</th>
                     <th>Ngày Đăng</th>
@@ -95,19 +97,34 @@
                     <td>{{ $data->name }}</td>
                     <td>{{Html::image($data->image,'',array('class'=>'product-img'))}}</td>
                     <td>
-                        @if(!is_null($data->unit_id))
-                            {{$data->price}} {{$data->units->name}}
+                        @if(!is_null($data->price)||$data->price!=0)
+                            {{$data->price}} VNĐ
                         @else
-                            Không xác định
+                            Giá liên hệ
                         @endif
                     </td>
                     <td>
-                        @if(!is_null($data->area))
-                            {{$data->area}} m2
+                        @if(!is_null($data->sale)||$data->sale!=0)
+                            {{$data->sale}} %
                         @else
-                            Không xác định
+                            Không Giảm Giá
                         @endif
-
+                    </td>
+                    <td>
+                        @if(!is_null($data->final_price)||$data->final_price!=0)
+                            {{$data->final_price}} VNĐ
+                        @elseif(!is_null($data->sale))
+                            {{$data->price}} VNĐ
+                        @else
+                            Giá liên hệ
+                        @endif
+                    </td>
+                    <td>
+                        @if($data->is_in_stock==1)
+                            Còn
+                        @else
+                            Hết Hàng
+                        @endif
                     </td>
                     @php
                         $arrayCategoryItem=$data->categoryitems(CATEGORY_PRODUCT)->get();
