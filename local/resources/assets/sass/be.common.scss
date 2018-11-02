@@ -83,6 +83,24 @@
     }
   }
 }
+.text-title-left {
+  color: #37474f;
+  padding: 20px 30px 20px 15px;
+  font-size: 18px;
+  display: block;
+}
+
+.text-title-right {
+  padding: 20px 30px 20px 15px;
+  background-color: #F2A654;
+  width: 100%;
+  display: block;
+  color: white;
+}
+
+.cke_reset {
+  border: none !important;
+}
 
 #seo-part {
   h3 {

@@ -183,6 +183,10 @@ return [
         App\Providers\MenuServiceProvider::class,
         App\Providers\FrontendServiceProvider::class,
         App\Providers\PostServiceProvider::class,
+        App\Providers\ProductServiceProvider::class,
+        App\Providers\CategoryItemServiceProvider::class,
+        App\Providers\PageServiceProvider::class,
+        App\Providers\ConfigServiceProvider::class,
 
     ],
 

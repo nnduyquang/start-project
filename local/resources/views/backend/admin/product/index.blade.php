@@ -7,37 +7,61 @@
 @section('scripts')
 @stop
 @section('container')
-    <div id="product">
-        <div class="col-lg-12 margin-tb">
-            <div class="row">
-                <div class="col-md-8">
-                    {{--<h2>Quản Lý Sản Phẩm</h2>--}}
-                </div>
-                <div class="col-md-4 text-right">
-                    @permission(('product-create'))
-                    <a class="btn btn-success" href="{{ route('product.create') }}"> Tạo Mới</a>
-                    @endpermission
-                </div>
+    <div class="col-lg-12 title-header">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Quản Lý Bất Động Sản</h2>
+                @permission(('product-create'))
+                <a class="btn btn-success" href="{{ route('product.create') }}"> Tạo Mới </a>
+                @endpermission
             </div>
         </div>
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        {!! Form::open(array('route' => 'product.search','method'=>'POST','id'=>'formSearchProduct')) !!}
+    </div>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+    <div class="wrap-index">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-6">
-                    {!! Form::text('txtSearch',null, array('class' => 'form-control','id'=>'txtSearch')) !!}
+                    <div id="ulti-bar" class="col-md-12">
+                        <div class="row">
+                            {{--<div class="col-md-2 v-divider-right">--}}
+                            {{--@permission(('product-create'))--}}
+                            {{--<a class="btn btn-success" href="{{ route('product.create') }}"> + Sản Phẩm</a>--}}
+                            {{--@endpermission--}}
+                            {{--</div>--}}
+                            <div class="ulti-edit" class="col-md-2">
+                                <ul class="ulti-head">
+                                    <li><a href="">Chỉnh Sửa</a>
+                                        <ul class="ulti-head-dropdown">
+                                            <li><a class="ulti-copy" href="#">Sao Chép</a></li>
+                                            {!! Form::open(array('route' => 'product.paste','method'=>'POST','id'=>'formPaste')) !!}
+                                            {{ Form::hidden('listID') }}
+                                            <li><a class="ulti-paste" href="#">Dán</a></li>
+                                            {!! Form::close() !!}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    {!! Form::open(array('route' => 'product.search','method'=>'POST','id'=>'formSearchProduct')) !!}
+                    <div class="input-group">
+                        {!! Form::text('txtSearch',null, array('class' => 'form-control','id'=>'txtSearch')) !!}
+                        <span class="input-group-btn">
                     {!! Form::submit('Tìm Kiếm', ['class' => 'btn btn-info']) !!}
+                        </span>
+                    </div>
+                    {!! Form::close() !!}
                 </div>
-
             </div>
         </div>
-        {!! Form::close() !!}
+
         @if(!empty($keywords))
             <div id="showKeySearch" class="col-md-12">
                 <div class="wrap-search">
@@ -47,37 +71,17 @@
             </div>
             {{ Form::hidden('hdKeyword', $keywords) }}
         @endif
-        <div id="ulti-bar" class="col-md-12">
-            <div class="row">
-                <div class="col-md-2 v-divider-right">
-                    @permission(('product-create'))
-                    <a class="btn btn-success" href="{{ route('product.create') }}"> + Sản Phẩm</a>
-                    @endpermission
-                </div>
-                <div class="ulti-edit" class="col-md-2">
-                    <ul class="ulti-head">
-                        <li><a href="">Chỉnh Sửa</a>
-                            <ul class="ulti-head-dropdown">
-                                <li><a class="ulti-copy" href="#">Sao Chép</a></li>
-                                {!! Form::open(array('route' => 'product.paste','method'=>'POST','id'=>'formPaste')) !!}
-                                {{ Form::hidden('listID') }}
-                                <li><a class="ulti-paste" href="#">Dán</a></li>
-                                {!! Form::close() !!}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
+
         <div class="col-md-12">
-            <table class="table table-bordered">
+            <table class="table">
                 <tr>
                     <th>TT</th>
                     <th></th>
                     <th>Tên Sản Phẩm</th>
                     <th>Hình</th>
-                    <th>Giá Gốc</th>
-                    <th>Giá Giảm</th>
+                    <th>Giá</th>
+                    <th>Diện Tích</th>
                     <th>Loại Sản Phẩm</th>
                     <th>Người Đăng</th>
                     <th>Ngày Đăng</th>
@@ -90,13 +94,29 @@
                     <td>{{Form::checkbox('id[]',$data->id)}}</td>
                     <td>{{ $data->name }}</td>
                     <td>{{Html::image($data->image,'',array('class'=>'product-img'))}}</td>
-                    <td>{{$data->price}}</td>
-                    <td>{{$data->final_price}}</td>
-                    <td>{{ $data->categoryproduct->name }}</td>
+                    <td>
+                        @if(!is_null($data->unit_id))
+                            {{$data->price}} {{$data->units->name}}
+                        @else
+                            Không xác định
+                        @endif
+                    </td>
+                    <td>
+                        @if(!is_null($data->area))
+                            {{$data->area}} m2
+                        @else
+                            Không xác định
+                        @endif
+
+                    </td>
+                    @php
+                        $arrayCategoryItem=$data->categoryitems(CATEGORY_PRODUCT)->get();
+                    @endphp
+                    <td>{{$arrayCategoryItem->implode('name',',')}}</td>
                     <td>{{ $data->users->name }}</td>
                     <td>{{ $data->created_at }}</td>
                     <td>{{ $data->updated_at }}</td>
-                    <td>{{$data->isActive}}</td>
+                    <td>{{$data->is_active}}</td>
                     <td>
                         @permission(('product-edit'))
                         <a class="btn btn-primary" href="{{ route('product.edit',$data->id) }}">Cập Nhật</a>
@@ -111,6 +131,7 @@
                 @endforeach
             </table>
         </div>
-        {!! $products->links() !!}
+    </div>
+    {!! $products->links() !!}
     </div>
 @stop

@@ -31,26 +31,8 @@
         <li class="nav-item"><a class="nav-link {{ set_active('sml_admin/menu') }}" href="{{ route('menu.index') }}"><i class="fa fa-link"></i>
                 <p>Menu Builder</p></a>
         </li>
-        <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
-                <i class="fa fa-link"></i>
-                <p>Cấu hình</p>
-                <i class="right fa fa-angle-left"></i>
-            </a>
-            <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{ route('config.general.index') }}" class="nav-link {{ set_active('sml_admin/config/general') }}">
-                        {{--<i class="fa fa-link"></i>--}}
-                        <p>Cấu Hình Chung</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('config.email.index') }}" class="nav-link {{ set_active('sml_admin/config/email') }}">
-                        {{--<i class="fa fa-link"></i>--}}
-                        <p>Cấu Hình Email</p>
-                    </a>
-                </li>
-            </ul>
+        <li class="nav-item"><a class="nav-link {{ set_active('sml_admin/config') }}" href="{{ route('config.index') }}"><i class="fa fa-link"></i>
+                <p>Cấu Hình Chung</p></a>
         </li>
         <hr style="background-color: #4f5962">
         <div class="sign-out" style="text-align: center">

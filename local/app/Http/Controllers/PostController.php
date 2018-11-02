@@ -32,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         $data=$this->postRepository->showCreatePost();
-        return view('backend.admin.post.create', compact('roles', 'data'));
+        $categoryPost = $data['categoryPost'];
+        return view('backend.admin.post.create', compact('roles', 'categoryPost'));
     }
 
     /**
@@ -43,7 +44,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $posts = $this->postRepository->createNewPostWithSeoId($request);
+        $posts = $this->postRepository->createNewPost($request);
         return redirect()->route('post.index')->with('success', 'Tạo Mới Thành Công Bài Viết');
     }
 
@@ -68,7 +69,9 @@ class PostController extends Controller
     {
 //        $post = $this->postRepository->getPostById($id);
         $data=$this->postRepository->showEditPost($id);
-        return view('backend.admin.post.edit', compact('data'));
+        $categoryPost = $data['categoryPost'];
+        $post=$data['post'];
+        return view('backend.admin.post.edit', compact('categoryPost','post'));
     }
 
     /**
