@@ -2,7 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Repositories\Menu\MenuRepository;
+use App\Repositories\Frontend\FrontendRepository;
 use Illuminate\View\View;
 
 class MenuComposer
@@ -14,9 +14,9 @@ class MenuComposer
      *
      * @return void
      */
-    public function __construct(MenuRepository $menu)
+    public function __construct(FrontendRepository $frontend)
     {
-//       $this->listMenu = $menu->getAllMenuTree();
+        $this->listMenu = $frontend->getAllMenuFrontend();
     }
 
     /**
@@ -27,6 +27,6 @@ class MenuComposer
      */
     public function compose(View $view)
     {
-//        $view->with('listMenu', $this->listMenu);
+        $view->with('listMenu', $this->listMenu);
     }
 }

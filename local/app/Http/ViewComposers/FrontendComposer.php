@@ -16,7 +16,7 @@ class FrontendComposer
      */
     public function __construct(FrontendRepository $home)
     {
-        $this->frontend = $home->getFrontEndInfo();
+        $this->frontend = $home->getFrontendCommon();
     }
 
     /**
@@ -27,6 +27,6 @@ class FrontendComposer
      */
     public function compose(View $view)
     {
-        $view->with('listFrontEndInfo', $this->frontend);
+        $view->with('listFrontendCommon', $this->frontend);
     }
 }
