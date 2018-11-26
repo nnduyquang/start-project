@@ -18,10 +18,17 @@ class PostController extends Controller
     {
         $this->postRepository = $postRepository;
     }
-    public function index(Request $request)
+
+    public function index(Request $request, $type)
     {
-        $posts = $this->postRepository->getAllPostOrderById();
-        return view('backend.admin.post.index', compact('posts'))->with('i', ($request->input('page', 1) - 1) * 5);
+        $posts = $this->postRepository->getAllPostOrderById($type);
+        $view = '';
+        if ($type == IS_POST) {
+            $view = 'backend.admin.post.index';
+        } else {
+            $view = 'backend.admin.page.index';
+        }
+        return view($view, compact('posts'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -29,11 +36,15 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($type)
     {
-        $data=$this->postRepository->showCreatePost();
-        $categoryPost = $data['categoryPost'];
-        return view('backend.admin.post.create', compact('roles', 'categoryPost'));
+        $data = $this->postRepository->showCreatePost($type);
+        if ($type == IS_POST) {
+            $categoryPost = $data['categoryPost'];
+            return view('backend.admin.post.create', compact('roles', 'categoryPost'));
+        } else {
+            return view('backend.admin.page.create', compact('roles'));
+        }
     }
 
     /**
@@ -42,10 +53,14 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $type)
     {
-        $posts = $this->postRepository->createNewPost($request);
-        return redirect()->route('post.index')->with('success', 'Tạo Mới Thành Công Bài Viết');
+        $posts = $this->postRepository->createNewPost($request, $type);
+        if ($type == IS_POST) {
+            return redirect()->route('post.index')->with('success', 'Tạo Mới Thành Công Bài Viết');
+        } else {
+            return redirect()->route('page.index')->with('success', 'Tạo Mới Thành Công Bài Viết');
+        }
     }
 
     /**
@@ -65,13 +80,19 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $type)
     {
 //        $post = $this->postRepository->getPostById($id);
-        $data=$this->postRepository->showEditPost($id);
-        $categoryPost = $data['categoryPost'];
-        $post=$data['post'];
-        return view('backend.admin.post.edit', compact('categoryPost','post'));
+        $data = $this->postRepository->showEditPost($id);
+        $post = $data['post'];
+        if ($type == IS_POST) {
+            $categoryPost = $data['categoryPost'];
+            return view('backend.admin.post.edit', compact('categoryPost', 'post'));
+        } else {
+            return view('backend.admin.page.edit', compact('post'));
+        }
+
+
     }
 
     /**
@@ -81,10 +102,16 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $type)
     {
-        $posts = $this->postRepository->updateNewPost($request,$id);
-        return redirect()->route('post.index')->with('success', 'Cập Nhật Thành Công Bài Viết');
+        $posts = $this->postRepository->updateNewPost($request, $id, $type);
+        $returnRoute='';
+        if($type==IS_POST){
+            $returnRoute='post.index';
+        }else{
+            $returnRoute='page.index';
+        }
+        return redirect()->route($returnRoute)->with('success', 'Cập Nhật Thành Công Bài Viết');
     }
 
     /**
@@ -93,10 +120,16 @@ class PostController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id,$type)
     {
         $this->postRepository->deletePost($id);
-        return redirect()->route('post.index')
+        $returnRoute='';
+        if($type==IS_POST){
+            $returnRoute='post.index';
+        }else{
+            $returnRoute='page.index';
+        }
+        return redirect()->route($returnRoute)
             ->with('success', 'Đã Xóa Thành Công');
     }
 }

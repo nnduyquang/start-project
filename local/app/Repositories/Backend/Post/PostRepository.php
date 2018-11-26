@@ -15,17 +15,19 @@ class PostRepository extends EloquentRepository implements PostRepositoryInterfa
         return \App\Post::class;
     }
 
-    public function getAllPostOrderById()
+    public function getAllPostOrderById($type)
     {
-        return $this->_model::where('post_type', '=', IS_POST)->orderBy('id', 'DESC')->get();
+        return $this->_model::where('post_type', '=', $type)->orderBy('id', 'DESC')->get();
     }
 
-    public function showCreatePost()
+    public function showCreatePost($type)
     {
-        $data=[];
-        $categoryItem=new CategoryItem();
-        $categoryPost = $categoryItem->getAllParent('order', CATEGORY_POST);
-        $data['categoryPost'] = $categoryPost;
+        $data = [];
+        if ($type == IS_POST) {
+            $categoryItem = new CategoryItem();
+            $categoryPost = $categoryItem->getAllParent('order', CATEGORY_POST);
+            $data['categoryPost'] = $categoryPost;
+        }
         return $data;
     }
 
@@ -40,7 +42,7 @@ class PostRepository extends EloquentRepository implements PostRepositoryInterfa
     }
 
 
-    public function createNewPost($request)
+    public function createNewPost($request, $type)
     {
         $seo = new Seo();
         if (!$seo->isSeoParameterEmpty($request)) {
@@ -51,40 +53,45 @@ class PostRepository extends EloquentRepository implements PostRepositoryInterfa
         }
         $parameters = $this->_model->prepareParameters($request);
         $result = $this->_model->create($parameters->all());
-        $attachData = array();
-        foreach ($parameters['list_category_id'] as $key => $item) {
-            $attachData[$item] = array('type' => CATEGORY_POST);
+        if ($type == IS_POST) {
+            $attachData = array();
+            foreach ($parameters['list_category_id'] as $key => $item) {
+                $attachData[$item] = array('type' => CATEGORY_POST);
+            }
+            $result->categoryitems(CATEGORY_POST)->attach($attachData);
         }
-        $result->categoryitems(CATEGORY_POST)->attach($attachData);
         return true;
     }
 
-    public function updateNewPost($request,$id)
+    public function updateNewPost($request, $id, $type)
     {
         $parameters = $this->_model->prepareParameters($request);
         $result = $this->update($id, $parameters->all());
         $seo = new Seo();
         if (!$seo->isSeoParameterEmpty($request)) {
-            if(is_null($result->seo_id)){
+            if (is_null($result->seo_id)) {
                 $data = Seo::create($request->all());
-                $result->update(['seo_id'=>$data->id]);
-            }else{
+                $result->update(['seo_id' => $data->id]);
+            } else {
                 $result->seos->update($parameters->all());
             }
-        }else{
-            if(!is_null($result->seo_id)){
+        } else {
+            if (!is_null($result->seo_id)) {
                 $result->seos->delete();
             }
         }
-        $syncData = array();
-        foreach ($parameters['list_category_id'] as $key => $item) {
-            $syncData[$item] = array('type' => CATEGORY_POST);
+        if ($type == IS_POST) {
+            $syncData = array();
+            foreach ($parameters['list_category_id'] as $key => $item) {
+                $syncData[$item] = array('type' => CATEGORY_POST);
+            }
+            $result->categoryitems(CATEGORY_POST)->sync($syncData);
         }
-        $result->categoryitems(CATEGORY_POST)->sync($syncData);
         return true;
     }
 
-    public function deletePost($id){
+    public function deletePost($id)
+    {
         $this->delete($id);
         return true;
     }
