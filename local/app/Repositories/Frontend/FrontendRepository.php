@@ -3,10 +3,7 @@
 namespace App\Repositories\Frontend;
 
 
-use App\CategoryItem;
-use App\Config;
-use App\Post;
-use App\Product;
+use App\Menu;
 
 class FrontendRepository implements FrontendRepositoryInterface
 {
