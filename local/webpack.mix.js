@@ -14,7 +14,7 @@ mix
     //CSS DÙNG CHUNG CHO FRONTEND VÀ BACKEND
     .styles([
         'bower_components/bootstrap/dist/css/bootstrap.min.css',
-        'bower_components/font-awesome/web-fonts-with-css/css/fontawesome-all.min.css',
+        'bower_components/font-awesome/css/all.min.css',
         'bower_components/Ionicons/css/ionicons.min.css',
         'bower_components/fancybox/dist/jquery.fancybox.min.css',
     ], '../css/core.common.css')
