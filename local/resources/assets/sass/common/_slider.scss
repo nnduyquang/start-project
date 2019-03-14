@@ -1,0 +1,15 @@
+.slider{
+  &:before{
+    display: block;
+    width: 100%;
+    padding-top: 130px;
+    content: ' ';
+  }
+}
+@media only screen and (max-width: 575.98px) {
+  .slider {
+    &:before{
+      padding-top: 51px;
+    }
+  }
+}

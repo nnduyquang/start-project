@@ -1,0 +1,55 @@
+.lazy-background-img{
+  background: url("https://ik.imagekit.io/demo/img/image2.jpeg?tr=h-1:h-378")!important;
+}
+.main-title {
+  background-color: #f4f4f4;
+  .icon-title {
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    height: 21px;
+  }
+  h1 {
+    text-align: center;
+    line-height: 30px;
+    color: $main-color;
+    text-transform: Capitalize;
+    font-size: 36px;
+    padding: 15px 0px 15px 0px;
+  }
+}
+@keyframes fade {
+  from { opacity: 1.0; }
+  50% { opacity: 0.5; }
+  to { opacity: 1.0; }
+}
+
+@-webkit-keyframes fade {
+  from { opacity: 1.0; }
+  50% { opacity: 0.5; }
+  to { opacity: 1.0; }
+}
+@keyframes shimmerBackground
+{
+  0%
+  {
+    background-position: -1000px 0
+  }
+
+  100%
+  {
+    background-position: 1000px 0
+  }
+}
+
+.blink {
+  animation:fade 1000ms infinite;
+  -webkit-animation:fade 1000ms infinite;
+}
+//hieu ung anh sang
+.shimmer
+{
+  background-image: linear-gradient(100deg, rgba(255,255,255,0) 0%,rgba(255,255,255,0) 35%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 65%, rgba(255,255,255,0) 100%);
+  background-repeat: repeat-y;
+  background-position: -1000px 0;
+  animation: shimmerBackground 2.5s linear infinite;
+}

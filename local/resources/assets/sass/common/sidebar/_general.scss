@@ -1,0 +1,17 @@
+@import "../../common/variables";
+.sidebar-sea {
+  margin: 20px 0;
+  background-color: white;
+  border-top: 6px solid $main-color;
+  box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
+  h3 {
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 14px;
+    color: $main-color;
+    padding: 18px 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+}
